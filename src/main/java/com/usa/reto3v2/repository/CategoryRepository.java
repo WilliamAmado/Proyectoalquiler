@@ -1,8 +1,7 @@
 package com.usa.reto3v2.repository;
 
-import com.usa.reto3v2.entities.Admin;
 import com.usa.reto3v2.entities.Category;
-import com.usa.reto3v2.repository.crudRepository.CategoryCurdRepository;
+import com.usa.reto3v2.repository.crudRepository.CategoryCrudRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -13,18 +12,18 @@ import java.util.Optional;
 public class CategoryRepository {
 
     @Autowired
-    private CategoryCurdRepository categoryCurdRepository;
+    private CategoryCrudRepository categoryCrudRepository;
 
     public List<Category> getAll(){
-        return (List<Category>) categoryCurdRepository.findAll();
+        return (List<Category>) categoryCrudRepository.findAll();
     }
     public Optional<Category> getCategory(int id){
-        return categoryCurdRepository.findById(id);
+        return categoryCrudRepository.findById(id);
     }
     public Category save(Category categoria){
-        return categoryCurdRepository.save(categoria);
+        return categoryCrudRepository.save(categoria);
     }
     public void delete(Category categoria){
-        categoryCurdRepository.delete(categoria);
+        categoryCrudRepository.delete(categoria);
     }
 }
