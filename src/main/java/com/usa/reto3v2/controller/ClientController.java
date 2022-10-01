@@ -21,7 +21,5 @@ public class ClientController {
     @PostMapping("/save")
     public Client save(@RequestBody Client c){
         return clientService.save(c);
-
-
     }
 }

@@ -15,6 +15,9 @@ public class Client implements Serializable {
     private String password;
     private Integer age;
 
+    public Client() {
+    }
+
     public Integer getId() {
         return id;
     }
