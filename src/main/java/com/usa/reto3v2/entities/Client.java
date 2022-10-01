@@ -18,6 +18,14 @@ public class Client implements Serializable {
     public Client() {
     }
 
+    public Client(Integer id, String name, String email, String password, Integer age) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.age = age;
+    }
+
     public Integer getId() {
         return id;
     }

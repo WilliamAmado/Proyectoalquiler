@@ -21,6 +21,14 @@ public class Motorbike implements Serializable {
     public Motorbike() {
     }
 
+    public Motorbike(Integer id, String brand, String name, Year year, String description) {
+        this.id = id;
+        this.brand = brand;
+        this.name = name;
+        this.year = year;
+        this.description = description;
+    }
+
     public Integer getId() {
         return id;
     }

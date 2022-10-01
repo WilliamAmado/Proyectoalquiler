@@ -17,6 +17,9 @@ public class MotorbikeService {
     public List<Motorbike> getAll(){
         return motorbikeRepository.getAll();
     }
+    public Motorbike get(Integer id){
+        return motorbikeRepository.getMotorbike(id).get();
+    }
     public Optional<Motorbike> getMotorbike(int id){
         return motorbikeRepository.getMotorbike(id);
     }
