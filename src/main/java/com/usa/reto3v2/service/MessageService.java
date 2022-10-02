@@ -5,10 +5,12 @@ import com.usa.reto3v2.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class MessageService {
 
     @Autowired
@@ -21,17 +23,17 @@ public class MessageService {
         return messageRepository.getMessage(id);
     }
 
-    public Message save(Message mensaje){
+    public void save(Message mensaje){
         if(mensaje.getIdMessage()==null){
-            return messageRepository.save(mensaje);
+              messageRepository.save(mensaje);
         }
         else {
             Optional<Message> m =messageRepository.getMessage(mensaje.getIdMessage());
             if(m.isPresent()){
-                return m.get();
+                  m.get();
             }
             else{
-                return  messageRepository.save(mensaje);
+                   messageRepository.save(mensaje);
             }
         }
     }

@@ -10,17 +10,20 @@ public class Admin implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column (length = 250)
     private String name;
-    private String user;
+    @Column (length = 45)
+    private String email;
+    @Column (length = 45)
     private String password;
 
     public Admin() {
     }
 
-    public Admin(Integer id, String name, String user, String password) {
+    public Admin(Integer id, String name, String email, String password) {
         this.id = id;
         this.name = name;
-        this.user = user;
+        this.email = email;
         this.password = password;
     }
 
@@ -40,12 +43,12 @@ public class Admin implements Serializable {
         this.name = name;
     }
 
-    public String getUser() {
-        return user;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {

@@ -32,8 +32,8 @@ public class MotorbikeController {
 
     }
     @PostMapping("/save")
-    public Motorbike save(@RequestBody Motorbike mt){
-        return motorbikeService.save(mt);
+    public void  save(@RequestBody Motorbike mt){
+          motorbikeService.save(mt);
     }
 
 }
