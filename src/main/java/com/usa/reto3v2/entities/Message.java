@@ -1,24 +1,34 @@
 package com.usa.reto3v2.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name="messsage")
+@Table(name="message")
+@JsonIgnoreProperties({"motorbike","client"})
 public class Message implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idMessage;
+    @Column (length = 250)
     private String messageText;
-
+    @ManyToOne
+    @JoinColumn(name="motorbikeId",referencedColumnName = "id")
+    @JsonIgnoreProperties("messages")
+    private Motorbike motorbike;
+    @ManyToOne
+    @JoinColumn(name="client1",referencedColumnName = "idClient")
+    @JsonIgnoreProperties("messages")
+    private Client client;
 
     public Message() {
     }
 
-    public Message(Integer idMessage, String messageText) {
+    public Message(Integer idMessage) {
         this.idMessage = idMessage;
-        this.messageText = messageText;
     }
 
     public Integer getIdMessage() {
@@ -35,5 +45,21 @@ public class Message implements Serializable {
 
     public void setMessageText(String messageText) {
         this.messageText = messageText;
+    }
+
+    public Motorbike getMotorbike() {
+        return motorbike;
+    }
+
+    public void setMotorbike(Motorbike motorbike) {
+        this.motorbike = motorbike;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 }
