@@ -19,8 +19,8 @@ public class MessageController {
         return messageService.getAll();
     }
     @PostMapping("/save")
-    public Message save(@RequestBody Message ad){
-        return messageService.save(ad);
+    public void save(@RequestBody Message ad){
+        messageService.save(ad);
     }
 
 }

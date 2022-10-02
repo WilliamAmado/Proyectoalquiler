@@ -5,10 +5,12 @@ import com.usa.reto3v2.repository.MotorbikeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class MotorbikeService {
 
     @Autowired
@@ -23,17 +25,17 @@ public class MotorbikeService {
     public Optional<Motorbike> getMotorbike(int id){
         return motorbikeRepository.getMotorbike(id);
     }
-    public Motorbike save(Motorbike moto){
+    public void save(Motorbike moto){
         if(moto.getId()==null){
-            return motorbikeRepository.save(moto);
+             motorbikeRepository.save(moto);
         }
         else{
             Optional<Motorbike> m=motorbikeRepository.getMotorbike(moto.getId());
             if(m.isPresent()){
-                return m.get();
+                 m.get();
             }
             else{
-                return motorbikeRepository.save(moto);
+                 motorbikeRepository.save(moto);
             }
         }
     }

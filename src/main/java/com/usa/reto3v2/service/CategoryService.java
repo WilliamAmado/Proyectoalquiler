@@ -5,10 +5,12 @@ import com.usa.reto3v2.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class CategoryService {
 
     @Autowired
@@ -17,20 +19,24 @@ public class CategoryService {
     public List<Category> getAll(){
         return categoryRepository.getAll();
     }
+    //public List<Category> getAll(){
+        //return categoryRepository.getAll();
+    //}
+
     public Optional<Category> getCategory(int id){
         return categoryRepository.getCategory(id);
     }
-    public Category save (Category categoria){
+    public void save (Category categoria){
         if(categoria.getId()==null){
-            return categoryRepository.save(categoria);
+              categoryRepository.save(categoria);
         }
         else{
             Optional<Category> c=categoryRepository.getCategory(categoria.getId());
             if(c.isPresent()){
-                return c.get();
+                  c.get();
             }
             else{
-                return categoryRepository.save(categoria);
+                  categoryRepository.save(categoria);
             }
         }
     }

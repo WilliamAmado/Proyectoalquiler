@@ -19,7 +19,10 @@ public class CategoryController {
         return categoryService.getAll();
     }
     @PostMapping("/save")
-    public Category save(@RequestBody Category ct){
-        return categoryService.save(ct);
+    public void save(@RequestBody Category ct){
+        categoryService.save(ct);
+    //}@PostMapping("/save")
+    //public Category saveold(@RequestBody Category ct){
+        //return categoryService.save(ct);
     }
 }

@@ -5,10 +5,12 @@ import com.usa.reto3v2.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class ClientService {
 
     @Autowired
@@ -22,23 +24,23 @@ public class ClientService {
         return clientRepository.getClient(id);
     }
 
-    public Client save(Client firstClient){
-        if(firstClient.getId()==null){
-            return clientRepository.save(firstClient);
+    public void save(Client firstClient){
+        if(firstClient.getIdClient()==null){
+              clientRepository.save(firstClient);
         }
         else {
-            Optional<Client> a =clientRepository.getClient(firstClient.getId());
+            Optional<Client> a =clientRepository.getClient(firstClient.getIdClient());
             if(a.isPresent()){
-                return a.get();
+                  a.get();
             }
             else{
-                return  clientRepository.save(firstClient);
+                   clientRepository.save(firstClient);
             }
         }
     }
     public Client Update(Client firstClient){
-        if(firstClient.getId() != null){
-            Optional<Client> c =clientRepository.getClient(firstClient.getId());
+        if(firstClient.getIdClient() != null){
+            Optional<Client> c =clientRepository.getClient(firstClient.getIdClient());
             if(c.isPresent()){
                 if(firstClient.getName()!=null){
                     c.get().setName(firstClient.getName());

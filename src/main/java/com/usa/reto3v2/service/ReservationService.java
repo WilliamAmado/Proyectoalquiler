@@ -5,10 +5,12 @@ import com.usa.reto3v2.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class ReservationService {
 
     @Autowired
@@ -21,17 +23,17 @@ public class ReservationService {
         return reservationRepository.getReservation(id);
     }
 
-    public Reservation save(Reservation reservacion){
+    public void save(Reservation reservacion){
         if(reservacion.getIdReservation()==null){
-            return reservationRepository.save(reservacion);
+              reservationRepository.save(reservacion);
         }
         else {
             Optional<Reservation> a =reservationRepository.getReservation(reservacion.getIdReservation());
             if(a.isPresent()){
-                return a.get();
+                  a.get();
             }
             else{
-                return  reservationRepository.save(reservacion);
+                   reservationRepository.save(reservacion);
             }
         }
     }
