@@ -19,8 +19,8 @@ public class AdminController {
         return adminService.getAll();
     }
     @PostMapping("/save")
-    public void save(@RequestBody Admin ad){
-        adminService.save(ad);
+    public Admin save(@RequestBody Admin ad){
+       return adminService.save(ad);
     }
 
 }

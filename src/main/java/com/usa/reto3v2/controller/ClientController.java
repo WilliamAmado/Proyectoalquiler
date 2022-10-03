@@ -19,7 +19,7 @@ public class ClientController {
         return clientService.getAll();
     }
     @PostMapping("/save")
-    public void save(@RequestBody Client c){
-          clientService.save(c);
+    public Client save(@RequestBody Client c){
+         return clientService.save(c);
     }
 }

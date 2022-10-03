@@ -24,17 +24,17 @@ public class ClientService {
         return clientRepository.getClient(id);
     }
 
-    public void save(Client firstClient){
+    public Client save(Client firstClient){
         if(firstClient.getIdClient()==null){
-              clientRepository.save(firstClient);
+            return   clientRepository.save(firstClient);
         }
         else {
             Optional<Client> a =clientRepository.getClient(firstClient.getIdClient());
             if(a.isPresent()){
-                  a.get();
+                return   a.get();
             }
             else{
-                   clientRepository.save(firstClient);
+                 return   clientRepository.save(firstClient);
             }
         }
     }

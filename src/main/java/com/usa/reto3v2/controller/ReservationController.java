@@ -19,8 +19,8 @@ public class ReservationController {
         return reservationService.getAll();
     }
     @PostMapping("/save")
-    public void save(@RequestBody Reservation rs){
-        reservationService.save(rs);
+    public Reservation save(@RequestBody Reservation rs){
+       return reservationService.save(rs);
     }
 
 }
