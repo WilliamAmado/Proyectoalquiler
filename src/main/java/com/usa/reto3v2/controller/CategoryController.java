@@ -18,11 +18,11 @@ public class CategoryController {
     public List<Category> getAll(){
         return categoryService.getAll();
     }
-    @PostMapping("/save")
+    /*@PostMapping("/save")
     public void save(@RequestBody Category ct){
-        categoryService.save(ct);
-    //}@PostMapping("/save")
-    //public Category saveold(@RequestBody Category ct){
-        //return categoryService.save(ct);
+        categoryService.save(ct);*/
+    @PostMapping("/save")
+    public Category save(@RequestBody Category ct){
+        return categoryService.save(ct);
     }
 }

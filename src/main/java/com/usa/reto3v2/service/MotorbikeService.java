@@ -25,17 +25,17 @@ public class MotorbikeService {
     public Optional<Motorbike> getMotorbike(int id){
         return motorbikeRepository.getMotorbike(id);
     }
-    public void save(Motorbike moto){
+    public Motorbike save(Motorbike moto){
         if(moto.getId()==null){
-             motorbikeRepository.save(moto);
+             return motorbikeRepository.save(moto);
         }
         else{
             Optional<Motorbike> m=motorbikeRepository.getMotorbike(moto.getId());
             if(m.isPresent()){
-                 m.get();
+                 return m.get();
             }
             else{
-                 motorbikeRepository.save(moto);
+                 return motorbikeRepository.save(moto);
             }
         }
     }

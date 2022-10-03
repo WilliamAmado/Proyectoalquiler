@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name="message")
-@JsonIgnoreProperties({"motorbike","client"})
+//@JsonIgnoreProperties({"motorbike","client"})
 public class Message implements Serializable {
 
     @Id

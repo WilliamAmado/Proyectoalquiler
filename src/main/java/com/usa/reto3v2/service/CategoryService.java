@@ -26,17 +26,17 @@ public class CategoryService {
     public Optional<Category> getCategory(int id){
         return categoryRepository.getCategory(id);
     }
-    public void save (Category categoria){
+    public Category save (Category categoria){
         if(categoria.getId()==null){
-              categoryRepository.save(categoria);
+             return categoryRepository.save(categoria);
         }
         else{
             Optional<Category> c=categoryRepository.getCategory(categoria.getId());
             if(c.isPresent()){
-                  c.get();
+                return   c.get();
             }
             else{
-                  categoryRepository.save(categoria);
+                return   categoryRepository.save(categoria);
             }
         }
     }

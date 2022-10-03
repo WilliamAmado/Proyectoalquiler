@@ -23,17 +23,17 @@ public class ReservationService {
         return reservationRepository.getReservation(id);
     }
 
-    public void save(Reservation reservacion){
+    public Reservation save(Reservation reservacion){
         if(reservacion.getIdReservation()==null){
-              reservationRepository.save(reservacion);
+              return reservationRepository.save(reservacion);
         }
         else {
             Optional<Reservation> a =reservationRepository.getReservation(reservacion.getIdReservation());
             if(a.isPresent()){
-                  a.get();
+                  return    a.get();
             }
             else{
-                   reservationRepository.save(reservacion);
+                   return reservationRepository.save(reservacion);
             }
         }
     }
