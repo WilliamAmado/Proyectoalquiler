@@ -30,7 +30,7 @@ public class MessageService {
         else {
             Optional<Message> m =messageRepository.getMessage(mensaje.getIdMessage());
             if(m.isPresent()){
-                 return m.get();
+                 return mensaje ;
             }
             else{
                   return messageRepository.save(mensaje);
@@ -43,6 +43,12 @@ public class MessageService {
             if(ms.isPresent()){
                 if(mensaje.getMessageText()!=null){
                     ms.get().setMessageText(mensaje.getMessageText());
+                }
+                if(mensaje.getMotorbike()!=null){
+                    ms.get().setMotorbike(mensaje.getMotorbike());
+                }
+                if(mensaje.getClient()!=null){
+                    ms.get().setClient(mensaje.getClient());
                 }
 
 

@@ -14,23 +14,24 @@ public class Client implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idClient;
-    @Column (length = 250)
-    private String name;
     @Column (length = 45)
     private String email;
     @Column (length = 45)
     private String password;
+    @Column (length = 250)
+    private String name;
     private Integer age;
 
 //arreglo de messages en client
 
     @OneToMany(mappedBy = "client",cascade = {CascadeType.PERSIST})
     @JsonIgnoreProperties("client")
-    private List<Reservation> reservations;
-
+    private List<Message> messages;
     @OneToMany(mappedBy = "client",cascade = {CascadeType.PERSIST})
     @JsonIgnoreProperties("client")
-    private List<Message> messages;
+    private List<Reservation> reservations;
+
+
 
     public Client() {
         this.reservations=new ArrayList<Reservation>();

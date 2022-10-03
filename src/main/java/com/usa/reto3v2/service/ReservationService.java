@@ -30,7 +30,7 @@ public class ReservationService {
         else {
             Optional<Reservation> a =reservationRepository.getReservation(reservacion.getIdReservation());
             if(a.isPresent()){
-                  return    a.get();
+                  return    reservacion;
             }
             else{
                    return reservationRepository.save(reservacion);
@@ -50,9 +50,16 @@ public class ReservationService {
                 if(reservacion.getStatus()!=null){
                    rs.get().setStatus(reservacion.getStatus());
                 }
-                if(reservacion.getScore()!=0){
+                if(reservacion.getScore()!=null){
                     rs.get().setScore(reservacion.getScore());
                 }
+                if(reservacion.getMotorbike()!=null){
+                    rs.get().setMotorbike(reservacion.getMotorbike());
+                }
+                if(reservacion.getClient()!=null){
+                    rs.get().setClient(reservacion.getClient());
+                }
+
 
                 reservationRepository.save(rs.get());
                 return rs.get();
