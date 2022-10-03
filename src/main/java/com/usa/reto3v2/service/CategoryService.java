@@ -33,7 +33,7 @@ public class CategoryService {
         else{
             Optional<Category> c=categoryRepository.getCategory(categoria.getId());
             if(c.isPresent()){
-                return   c.get();
+                return   categoria;
             }
             else{
                 return   categoryRepository.save(categoria);
@@ -50,6 +50,9 @@ public class CategoryService {
                 }
                 if(categoria.getDescription()!=null){
                     ct.get().setDescription(categoria.getDescription());
+                }
+                if(categoria.getMotorbikes()!=null){
+                    ct.get().setMotorbikes(categoria.getMotorbikes());
                 }
                 categoryRepository.save(ct.get());
                 return  ct.get();

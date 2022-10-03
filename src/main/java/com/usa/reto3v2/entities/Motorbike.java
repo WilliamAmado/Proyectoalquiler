@@ -21,22 +21,23 @@ public class Motorbike implements Serializable {
     private String brand;
     @Column (length = 45)
     private String name;
-    private Year year;
+    private Integer year;
     @Column (length = 250)
     private String description;
 
     @ManyToOne
-    @JoinColumn(name="categoryId",referencedColumnName = "id")
+    @JoinColumn(name="categoryId")
     @JsonIgnoreProperties("motorbikes")
     private Category category;
 
     @OneToMany(mappedBy = "motorbike",cascade = {CascadeType.PERSIST})
-    @JsonIgnoreProperties("motorbike")
+    @JsonIgnoreProperties({"motorbike","client"})
+    private List<Message> messages;
+    @OneToMany(mappedBy = "motorbike",cascade = {CascadeType.PERSIST})
+    @JsonIgnoreProperties({"motorbike","message"})
     private List<Reservation> reservations;
 
-    @OneToMany(mappedBy = "motorbike",cascade = {CascadeType.PERSIST})
-    @JsonIgnoreProperties("motorbike")
-    private List<Message> messages;
+
 
 
     public Motorbike(){
@@ -63,7 +64,7 @@ public class Motorbike implements Serializable {
         return id;
     }
 
-    public Motorbike(Integer id, String brand, String name, Year year, String description, Category category) {
+    public Motorbike(Integer id, String brand, String name, Integer year, String description, Category category) {
         this.id = id;
         this.brand = brand;
         this.name = name;
@@ -92,11 +93,11 @@ public class Motorbike implements Serializable {
         this.name = name;
     }
 
-    public Year getYear() {
+    public Integer getYear() {
         return year;
     }
 
-    public void setYear(Year year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 

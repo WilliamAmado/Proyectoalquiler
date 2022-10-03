@@ -31,7 +31,7 @@ public class ClientService {
         else {
             Optional<Client> a =clientRepository.getClient(firstClient.getIdClient());
             if(a.isPresent()){
-                return   a.get();
+                return   firstClient;
             }
             else{
                  return   clientRepository.save(firstClient);
@@ -53,6 +53,12 @@ public class ClientService {
                 }
                 if(firstClient.getAge()!=null){
                     c.get().setAge(firstClient.getAge());
+                }
+                if(firstClient.getMessages()!=null){
+                    c.get().setMessages(firstClient.getMessages());
+                }
+                if(firstClient.getReservations()!=null){
+                    c.get().setReservations(firstClient.getReservations());
                 }
                 clientRepository.save(c.get());
                     return c.get();
