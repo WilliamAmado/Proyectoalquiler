@@ -17,7 +17,7 @@ public class Score implements Serializable {
     private Integer stars;
 
     @OneToOne
-    @JsonIgnoreProperties("score")
+    @JsonIgnoreProperties("score")//ignorar calificacion
     private Reservation reservation;
 
     public Score() {

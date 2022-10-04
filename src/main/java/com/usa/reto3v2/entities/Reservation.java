@@ -26,10 +26,10 @@ public class Reservation implements Serializable {
     private Motorbike motorbike;
     @ManyToOne
     @JoinColumn(name="clientId")
-    @JsonIgnoreProperties({"reservations","messages"})
+    @JsonIgnoreProperties({"reservations","messages"})//ignorar reservacion y mensaje
     private Client client;
     @OneToOne(cascade = {CascadeType.REMOVE},mappedBy="reservation")
-    @JsonIgnoreProperties("reservation")
+    @JsonIgnoreProperties("reservation")//ignorar reservacion
     private Score score;
 
 

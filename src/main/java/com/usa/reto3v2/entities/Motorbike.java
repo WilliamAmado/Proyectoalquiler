@@ -27,14 +27,14 @@ public class Motorbike implements Serializable {
 
     @ManyToOne
     @JoinColumn(name="categoryId")
-    @JsonIgnoreProperties("motorbikes")
+    @JsonIgnoreProperties("motorbikes")//ignorar motorbike
     private Category category;
 
     @OneToMany(mappedBy = "motorbike",cascade = {CascadeType.PERSIST})
-    @JsonIgnoreProperties({"motorbike","client"})
+    @JsonIgnoreProperties({"motorbike","client"})//ignorar mototbike y cliente
     private List<Message> messages;
     @OneToMany(mappedBy = "motorbike",cascade = {CascadeType.PERSIST})
-    @JsonIgnoreProperties({"motorbike","messages"})
+    @JsonIgnoreProperties({"motorbike","messages"})//ignorar motorbike y mensaje
     private List<Reservation> reservations;
 
 

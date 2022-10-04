@@ -25,10 +25,10 @@ public class Client implements Serializable {
 //arreglo de messages en client
 
     @OneToMany(mappedBy = "client",cascade = {CascadeType.PERSIST})
-    @JsonIgnoreProperties("client")
+    @JsonIgnoreProperties("client")//ignorar cliente
     private List<Message> messages;
     @OneToMany(mappedBy = "client",cascade = {CascadeType.PERSIST})
-    @JsonIgnoreProperties("client")
+    @JsonIgnoreProperties("client")//ignorar cliente
     private List<Reservation> reservations;
 
 
