@@ -34,7 +34,7 @@ public class Motorbike implements Serializable {
     @JsonIgnoreProperties({"motorbike","client"})
     private List<Message> messages;
     @OneToMany(mappedBy = "motorbike",cascade = {CascadeType.PERSIST})
-    @JsonIgnoreProperties({"motorbike","message"})
+    @JsonIgnoreProperties({"motorbike","messages"})
     private List<Reservation> reservations;
 
 
