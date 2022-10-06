@@ -25,17 +25,17 @@ public class MotorbikeService {
     public Optional<Motorbike> getMotorbike(int id){
         return motorbikeRepository.getMotorbike(id);
     }
-    public void save(Motorbike moto){
+    public Motorbike save(Motorbike moto){
         if(moto.getId()==null){
-             motorbikeRepository.save(moto);
+             return motorbikeRepository.save(moto);
         }
         else{
             Optional<Motorbike> m=motorbikeRepository.getMotorbike(moto.getId());
             if(m.isPresent()){
-                 m.get();
+                 return moto;
             }
             else{
-                 motorbikeRepository.save(moto);
+                 return motorbikeRepository.save(moto);
             }
         }
     }
@@ -54,6 +54,15 @@ public class MotorbikeService {
                }
                if(moto.getDescription()!=null){
                    mt.get().setDescription(moto.getDescription());
+               }
+               if(moto.getCategory()!=null){
+                   mt.get().setCategory(moto.getCategory());
+               }
+               if(moto.getMessages()!=null){
+                   mt.get().setMessages(moto.getMessages());
+               }
+               if(moto.getReservations()!=null){
+                   mt.get().setReservations(moto.getReservations());
                }
                motorbikeRepository.save(mt.get());
                return mt.get();

@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name="message")
-@JsonIgnoreProperties({"motorbike","client"})
+//@JsonIgnoreProperties({"motorbike","client"})
 public class Message implements Serializable {
 
     @Id
@@ -16,12 +16,12 @@ public class Message implements Serializable {
     @Column (length = 250)
     private String messageText;
     @ManyToOne
-    @JoinColumn(name="motorbikeId",referencedColumnName = "id")
-    @JsonIgnoreProperties("messages")
+    @JoinColumn(name="motorbikeId")
+    @JsonIgnoreProperties({"messages","reservations","client"})//ignorar mensaje y reservacion
     private Motorbike motorbike;
     @ManyToOne
-    @JoinColumn(name="client1",referencedColumnName = "idClient")
-    @JsonIgnoreProperties("messages")
+    @JoinColumn(name="client1")
+    @JsonIgnoreProperties({"messages","reservations"})//ignorar mensaje y reservacion
     private Client client;
 
     public Message() {

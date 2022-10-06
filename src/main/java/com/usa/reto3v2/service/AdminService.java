@@ -24,28 +24,16 @@ public class AdminService {
         return adminRepository.getAdmin(id);
     }
 
-    public void save(Admin administrador) {
-        if (administrador.getId() == null) {
-            adminRepository.save(administrador);
-        } else {
-            Optional<Admin> a = adminRepository.getAdmin(administrador.getId());
-            if (a.isPresent()) {
-                a.get();
-            } else {
-                adminRepository.save(administrador);
-            }
-        }
-    }
 
-    public Admin saveold(Admin administrador) {
+    public Admin save(Admin administrador) {
         if (administrador.getId() == null) {
-            return adminRepository.save(administrador);
+           return adminRepository.save(administrador);
         } else {
             Optional<Admin> a = adminRepository.getAdmin(administrador.getId());
             if (a.isPresent()) {
-                return a.get();
+               return a.get();
             } else {
-                return adminRepository.save(administrador);
+               return adminRepository.save(administrador);
             }
         }
     }

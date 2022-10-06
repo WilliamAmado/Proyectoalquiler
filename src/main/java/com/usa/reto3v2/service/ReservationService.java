@@ -23,21 +23,21 @@ public class ReservationService {
         return reservationRepository.getReservation(id);
     }
 
-    public void save(Reservation reservacion){
+    public Reservation save(Reservation reservacion){
         if(reservacion.getIdReservation()==null){
-              reservationRepository.save(reservacion);
+              return reservationRepository.save(reservacion);
         }
         else {
             Optional<Reservation> a =reservationRepository.getReservation(reservacion.getIdReservation());
             if(a.isPresent()){
-                  a.get();
+                  return    reservacion;
             }
             else{
-                   reservationRepository.save(reservacion);
+                   return reservationRepository.save(reservacion);
             }
         }
     }
-    public Reservation Update(Reservation reservacion){
+    public Reservation update(Reservation reservacion){
         if(reservacion.getIdReservation() != null){
             Optional<Reservation> rs =reservationRepository.getReservation(reservacion.getIdReservation());
             if(rs.isPresent()){
@@ -50,9 +50,16 @@ public class ReservationService {
                 if(reservacion.getStatus()!=null){
                    rs.get().setStatus(reservacion.getStatus());
                 }
-                if(reservacion.getScore()!=0){
+                if(reservacion.getScore()!=null){
                     rs.get().setScore(reservacion.getScore());
                 }
+                if(reservacion.getMotorbike()!=null){
+                    rs.get().setMotorbike(reservacion.getMotorbike());
+                }
+                if(reservacion.getClient()!=null){
+                    rs.get().setClient(reservacion.getClient());
+                }
+
 
                 reservationRepository.save(rs.get());
                 return rs.get();

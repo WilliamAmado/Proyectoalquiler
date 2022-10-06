@@ -23,17 +23,17 @@ public class MessageService {
         return messageRepository.getMessage(id);
     }
 
-    public void save(Message mensaje){
+    public Message save(Message mensaje){
         if(mensaje.getIdMessage()==null){
-              messageRepository.save(mensaje);
+            return   messageRepository.save(mensaje);
         }
         else {
             Optional<Message> m =messageRepository.getMessage(mensaje.getIdMessage());
             if(m.isPresent()){
-                  m.get();
+                 return mensaje ;
             }
             else{
-                   messageRepository.save(mensaje);
+                  return messageRepository.save(mensaje);
             }
         }
     }
@@ -43,6 +43,12 @@ public class MessageService {
             if(ms.isPresent()){
                 if(mensaje.getMessageText()!=null){
                     ms.get().setMessageText(mensaje.getMessageText());
+                }
+                if(mensaje.getMotorbike()!=null){
+                    ms.get().setMotorbike(mensaje.getMotorbike());
+                }
+                if(mensaje.getClient()!=null){
+                    ms.get().setClient(mensaje.getClient());
                 }
 
 

@@ -24,21 +24,21 @@ public class ClientService {
         return clientRepository.getClient(id);
     }
 
-    public void save(Client firstClient){
+    public Client save(Client firstClient){
         if(firstClient.getIdClient()==null){
-              clientRepository.save(firstClient);
+            return   clientRepository.save(firstClient);
         }
         else {
             Optional<Client> a =clientRepository.getClient(firstClient.getIdClient());
             if(a.isPresent()){
-                  a.get();
+                return   firstClient;
             }
             else{
-                   clientRepository.save(firstClient);
+                 return   clientRepository.save(firstClient);
             }
         }
     }
-    public Client Update(Client firstClient){
+    public Client update(Client firstClient){
         if(firstClient.getIdClient() != null){
             Optional<Client> c =clientRepository.getClient(firstClient.getIdClient());
             if(c.isPresent()){
@@ -53,6 +53,12 @@ public class ClientService {
                 }
                 if(firstClient.getAge()!=null){
                     c.get().setAge(firstClient.getAge());
+                }
+                if(firstClient.getMessages()!=null){
+                    c.get().setMessages(firstClient.getMessages());
+                }
+                if(firstClient.getReservations()!=null){
+                    c.get().setReservations(firstClient.getReservations());
                 }
                 clientRepository.save(c.get());
                     return c.get();

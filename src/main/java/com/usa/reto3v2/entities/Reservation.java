@@ -17,35 +17,35 @@ public class Reservation implements Serializable {
     @Column (length = 58)
     private Date startDate;
     private Date devolutionDate;
-    private String status;
-    private int score;
+    private String status="created";
+    //private int score;
 
     @ManyToOne
-    @JoinColumn(name="clientId",referencedColumnName = "idClient")
-    @JsonIgnoreProperties("reservations")
-    private Client client;
-
-    @ManyToOne
-    @JoinColumn(name="motorbikeId",referencedColumnName = "id")
+    @JoinColumn(name="motorbikeId")
     @JsonIgnoreProperties("reservations")
     private Motorbike motorbike;
+    @ManyToOne
+    @JoinColumn(name="clientId")
+    @JsonIgnoreProperties({"reservations","messages"})//ignorar reservacion y mensaje
+    private Client client;
+    @OneToOne(cascade = {CascadeType.REMOVE},mappedBy="reservation")
+    @JsonIgnoreProperties("reservation")//ignorar reservacion
+    private Score score;
+
+
 
 
     public Reservation() {
     }
 
-    public Reservation(Integer idReservation) {
-        this.idReservation = idReservation;
-    }
-
-    public Reservation(Integer idReservation, Date startDate, Date devolutionDate, String status, int score, Client client, Motorbike motorbike) {
+    public Reservation(Integer idReservation, Date startDate, Date devolutionDate, String status, Motorbike motorbike, Client client, Score score) {
         this.idReservation = idReservation;
         this.startDate = startDate;
         this.devolutionDate = devolutionDate;
         this.status = status;
-        this.score = score;
-        this.client = client;
         this.motorbike = motorbike;
+        this.client = client;
+        this.score = score;
     }
 
     public Integer getIdReservation() {
@@ -80,12 +80,12 @@ public class Reservation implements Serializable {
         this.status = status;
     }
 
-    public int getScore() {
-        return score;
+    public Motorbike getMotorbike() {
+        return motorbike;
     }
 
-    public void setScore(int score) {
-        this.score = score;
+    public void setMotorbike(Motorbike motorbike) {
+        this.motorbike = motorbike;
     }
 
     public Client getClient() {
@@ -96,11 +96,11 @@ public class Reservation implements Serializable {
         this.client = client;
     }
 
-    public Motorbike getMotorbike() {
-        return motorbike;
+    public Score getScore() {
+        return score;
     }
 
-    public void setMotorbike(Motorbike motorbike) {
-        this.motorbike = motorbike;
+    public void setScore(Score score) {
+        this.score = score;
     }
 }
