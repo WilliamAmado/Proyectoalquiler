@@ -19,33 +19,35 @@ public class ClientController {
     private ClientService clientService;
 
     @GetMapping("/all")
-    public List<Client> getAll(){
+    public List<Client> getAll() {
         return clientService.getAll();
     }
+
     @PostMapping("/save")
-    public Client save(@RequestBody Client c){
-         return clientService.save(c);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Client save(@RequestBody Client c) {
+        return clientService.save(c);
     }
 
     @PostMapping("/all")
     @ResponseStatus(HttpStatus.CREATED)
-    public List<Client> getAllClient2(){
+    public List<Client> getAllClient2() {
         return clientService.getAll();
     }
 
 
     @DeleteMapping("/delete/{idClient}")
-    public boolean deleteClient(@PathVariable Integer idClient){
+    public boolean deleteClient(@PathVariable Integer idClient) {
         return clientService.delete(idClient);
     }
 
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
-    public Client updateClient(@RequestBody Client client){
+    public Client updateClient(@RequestBody Client client) {
         return clientService.update(client);
     }
 
-    @PutMapping ("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Client> update(@PathVariable Integer id) {
         Client client = clientService.getClient(id).get();
         try {

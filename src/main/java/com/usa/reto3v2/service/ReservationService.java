@@ -15,48 +15,48 @@ public class ReservationService {
 
     @Autowired
     private ReservationRepository reservationRepository;
-    public List<Reservation> getAll(){
+
+    public List<Reservation> getAll() {
         return reservationRepository.getAll();
     }
 
-    public Optional<Reservation> getReservation(int id){
+    public Optional<Reservation> getReservation(int id) {
         return reservationRepository.getReservation(id);
     }
 
-    public Reservation save(Reservation reservacion){
-        if(reservacion.getIdReservation()==null){
-              return reservationRepository.save(reservacion);
-        }
-        else {
-            Optional<Reservation> a =reservationRepository.getReservation(reservacion.getIdReservation());
-            if(a.isPresent()){
-                  return    reservacion;
-            }
-            else{
-                   return reservationRepository.save(reservacion);
+    public Reservation save(Reservation reservacion) {
+        if (reservacion.getIdReservation() == null) {
+            return reservationRepository.save(reservacion);
+        } else {
+            Optional<Reservation> a = reservationRepository.getReservation(reservacion.getIdReservation());
+            if (a.isPresent()) {
+                return reservacion;
+            } else {
+                return reservationRepository.save(reservacion);
             }
         }
     }
-    public Reservation update(Reservation reservacion){
-        if(reservacion.getIdReservation() != null){
-            Optional<Reservation> rs =reservationRepository.getReservation(reservacion.getIdReservation());
-            if(rs.isPresent()){
-                if(reservacion.getStartDate()!=null){
+
+    public Reservation update(Reservation reservacion) {
+        if (reservacion.getIdReservation() != null) {
+            Optional<Reservation> rs = reservationRepository.getReservation(reservacion.getIdReservation());
+            if (rs.isPresent()) {
+                if (reservacion.getStartDate() != null) {
                     rs.get().setStartDate(reservacion.getStartDate());
                 }
-                if(reservacion.getDevolutionDate()!=null){
+                if (reservacion.getDevolutionDate() != null) {
                     rs.get().setDevolutionDate(reservacion.getDevolutionDate());
                 }
-                if(reservacion.getStatus()!=null){
-                   rs.get().setStatus(reservacion.getStatus());
+                if (reservacion.getStatus() != null) {
+                    rs.get().setStatus(reservacion.getStatus());
                 }
-                if(reservacion.getScore()!=null){
+                if (reservacion.getScore() != null) {
                     rs.get().setScore(reservacion.getScore());
                 }
-                if(reservacion.getMotorbike()!=null){
+                if (reservacion.getMotorbike() != null) {
                     rs.get().setMotorbike(reservacion.getMotorbike());
                 }
-                if(reservacion.getClient()!=null){
+                if (reservacion.getClient() != null) {
                     rs.get().setClient(reservacion.getClient());
                 }
 
@@ -64,21 +64,20 @@ public class ReservationService {
                 reservationRepository.save(rs.get());
                 return rs.get();
 
-            }
-            else{
+            } else {
                 return reservacion;
             }
-        }
-        else{
+        } else {
             return reservacion;
         }
     }
-    public boolean delete(int id){
-        boolean marca=false;
-        Optional<Reservation> a =reservationRepository.getReservation(id);
-        if(a.isPresent()){
+
+    public boolean delete(int id) {
+        boolean marca = false;
+        Optional<Reservation> a = reservationRepository.getReservation(id);
+        if (a.isPresent()) {
             reservationRepository.delete(a.get());
-            marca=true;
+            marca = true;
         }
         return marca;
 

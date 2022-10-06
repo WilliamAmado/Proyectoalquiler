@@ -20,36 +20,38 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping("/all")
-    public List<Category> getAll(){
+    public List<Category> getAll() {
         return categoryService.getAll();
     }
+
     /*@PostMapping("/save")
     public void save(@RequestBody Category ct){
         categoryService.save(ct);*/
     @PostMapping("/save")
-    public Category save(@RequestBody Category ct){
+    @ResponseStatus(HttpStatus.CREATED)
+    public Category save(@RequestBody Category ct) {
         return categoryService.save(ct);
     }
 
     @PostMapping("/all")
     @ResponseStatus(HttpStatus.CREATED)
-    public List<Category> getAllClient2(){
+    public List<Category> getAllClient2() {
         return categoryService.getAll();
     }
 
 
     @DeleteMapping("/delete/{idCategory}")
-    public boolean deleteAdmin(@PathVariable Integer idAdmin){
+    public boolean deleteAdmin(@PathVariable Integer idAdmin) {
         return categoryService.delete(idAdmin);
     }
 
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
-    public Category updateCategory(@RequestBody Category category){
+    public Category updateCategory(@RequestBody Category category) {
         return categoryService.update(category);
     }
 
-    @PutMapping ("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Category> update(@PathVariable Integer id) {
         Category category = categoryService.getCategory(id).get();
         try {

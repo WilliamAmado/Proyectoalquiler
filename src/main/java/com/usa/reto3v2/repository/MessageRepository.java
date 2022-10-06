@@ -14,16 +14,19 @@ public class MessageRepository {
     @Autowired
     private MessageCrudRepository messageCrudRepositor;
 
-    public List<Message> getAll(){
+    public List<Message> getAll() {
         return (List<Message>) messageCrudRepositor.findAll();
     }
-    public Optional<Message> getMessage (int id){
+
+    public Optional<Message> getMessage(int id) {
         return messageCrudRepositor.findById(id);
     }
-    public Message save(Message mensaje){
+
+    public Message save(Message mensaje) {
         return messageCrudRepositor.save(mensaje);
     }
-    public void delete(Message mensaje){
+
+    public void delete(Message mensaje) {
         messageCrudRepositor.delete(mensaje);
     }
 }

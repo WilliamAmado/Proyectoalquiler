@@ -8,18 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="category")
+@Table(name = "category")
 public class Category implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column (length = 45)
+    @Column(length = 45)
     private String name;
-    @Column (length = 250)
+    @Column(length = 250)
     private String description;
 
-    @OneToMany(mappedBy = "category",cascade = {CascadeType.PERSIST})
+    @OneToMany(mappedBy = "category", cascade = {CascadeType.PERSIST})
     @JsonIgnoreProperties("category")//ignorar categoria
     private List<Motorbike> motorbikes;
 

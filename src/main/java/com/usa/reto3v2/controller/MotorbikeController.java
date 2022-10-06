@@ -20,43 +20,46 @@ public class MotorbikeController {
     private MotorbikeService motorbikeService;
 
     @GetMapping("/all")
-    public List<Motorbike> getAll(){
+    public List<Motorbike> getAll() {
         return motorbikeService.getAll();
     }
+
     @GetMapping("/{id}")
-    public ResponseEntity<Motorbike> get(@PathVariable Integer id){
-        try{
-            Motorbike motorbike= motorbikeService.get(id);
+    public ResponseEntity<Motorbike> get(@PathVariable Integer id) {
+        try {
+            Motorbike motorbike = motorbikeService.get(id);
             return new ResponseEntity<Motorbike>(motorbike, HttpStatus.OK);
-        }catch (NoSuchElementException e){
-            return new ResponseEntity<Motorbike>( HttpStatus.NOT_FOUND);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<Motorbike>(HttpStatus.NOT_FOUND);
         }
 
     }
+
     @PostMapping("/save")
-    public Motorbike  save(@RequestBody Motorbike mt){
-        return   motorbikeService.save(mt);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Motorbike save(@RequestBody Motorbike mt) {
+        return motorbikeService.save(mt);
     }
 
     @PostMapping("/all")
     @ResponseStatus(HttpStatus.CREATED)
-    public List<Motorbike> getAllMotorbike2(){
+    public List<Motorbike> getAllMotorbike2() {
         return motorbikeService.getAll();
     }
 
 
     @DeleteMapping("/delete/{idCient}")
-    public boolean deleteMotorbike(@PathVariable Integer idMotorbike){
+    public boolean deleteMotorbike(@PathVariable Integer idMotorbike) {
         return motorbikeService.delete(idMotorbike);
     }
 
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
-    public Motorbike updateMotorbike(@RequestBody Motorbike motorbike){
+    public Motorbike updateMotorbike(@RequestBody Motorbike motorbike) {
         return motorbikeService.update(motorbike);
     }
 
-    @PutMapping ("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Motorbike> update(@PathVariable Integer id) {
         Motorbike motorbike = motorbikeService.getMotorbike(id).get();
         try {
