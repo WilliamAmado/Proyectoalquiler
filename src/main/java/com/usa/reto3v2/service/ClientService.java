@@ -38,7 +38,7 @@ public class ClientService {
             }
         }
     }
-    public Client Update(Client firstClient){
+    public Client update(Client firstClient){
         if(firstClient.getIdClient() != null){
             Optional<Client> c =clientRepository.getClient(firstClient.getIdClient());
             if(c.isPresent()){

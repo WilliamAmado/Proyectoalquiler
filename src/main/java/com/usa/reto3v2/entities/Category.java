@@ -24,29 +24,13 @@ public class Category implements Serializable {
     private List<Motorbike> motorbikes;
 
     public Category() {
-        motorbikes=new ArrayList<Motorbike>();
     }
 
-    public Category(Integer id) {
-        this.id = id;
-        motorbikes=new ArrayList<Motorbike>();
-    }
-
-    public List<Motorbike> getMotorbikes() {
-        return motorbikes;
-
-    }
-
-    public void setMotorbikes(List<Motorbike> motorbikes) {
-        motorbikes = motorbikes;
-        motorbikes=new ArrayList<Motorbike>();
-    }
-
-    public Category(Integer id, String name, String description) {
+    public Category(Integer id, String name, String description, List<Motorbike> motorbikes) {
         this.id = id;
         this.name = name;
         this.description = description;
-        motorbikes=new ArrayList<Motorbike>();
+        this.motorbikes = motorbikes;
     }
 
     public Integer getId() {
@@ -71,5 +55,13 @@ public class Category implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<Motorbike> getMotorbikes() {
+        return motorbikes;
+    }
+
+    public void setMotorbikes(List<Motorbike> motorbikes) {
+        this.motorbikes = motorbikes;
     }
 }
