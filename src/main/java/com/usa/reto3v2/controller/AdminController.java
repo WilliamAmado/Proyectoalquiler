@@ -18,7 +18,7 @@ public class AdminController {
     private AdminService adminService;
 
     @GetMapping("/all")
-    public List<Admin> getAll(){
+    public List<Admin> getAll() {
         return adminService.getAll();
     }
 
@@ -31,9 +31,10 @@ public class AdminController {
             return new ResponseEntity<Admin>(HttpStatus.NOT_FOUND);
         }
     }
+
     @PostMapping("/save")
-    public Admin save(@RequestBody Admin ad){
-       return adminService.save(ad);
+    public Admin save(@RequestBody Admin ad) {
+        return adminService.save(ad);
     }
 
 }
