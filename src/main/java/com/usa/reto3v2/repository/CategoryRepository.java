@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public class CategoryRepository {
 
-    @Autowired
+ @Autowired
     private CategoryCrudRepository categoryCrudRepository;
 
     public List<Category> getAll() {

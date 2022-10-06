@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public class AdminRepository {
 
-    @Autowired
+@Autowired
     private AdminCrudRepository adminCrudRepository;
 
     public List<Admin> getAll() {
