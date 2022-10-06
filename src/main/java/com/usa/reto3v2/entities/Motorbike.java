@@ -10,55 +10,47 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="motorbike")
+@Table(name = "motorbike")// Creacion de tabla
 public class Motorbike implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
+    //atributos de tabla
     private Integer id;
-    @Column (length = 45)
+    @Column(length = 45)
     private String brand;
-    @Column (length = 45)
+    @Column(length = 45)
     private String name;
+    //@Column(name="'year'")
     private Integer year;
-    @Column (length = 250)
+    @Column(length = 250)
     private String description;
-
-    @ManyToOne
-    @JoinColumn(name="categoryId")
-    @JsonIgnoreProperties("motorbikes")//ignorar motorbike
+    //Relaciones con tablas
+    @ManyToOne//Relación de muchos a uno
+    @JoinColumn(name = "categoryId")
+    @JsonIgnoreProperties("motorbikes")
     private Category category;
 
-    @OneToMany(mappedBy = "motorbike",cascade = {CascadeType.PERSIST})
-    @JsonIgnoreProperties({"motorbike","client"})//ignorar mototbike y cliente
+    @OneToMany(mappedBy = "motorbike", cascade = {CascadeType.PERSIST})//Relación de uno a muchos con Message
+    @JsonIgnoreProperties({"motorbike", "client"})
     private List<Message> messages;
-    @OneToMany(mappedBy = "motorbike",cascade = {CascadeType.PERSIST})
-    @JsonIgnoreProperties({"motorbike","messages"})//ignorar motorbike y mensaje
+    @OneToMany(mappedBy = "motorbike", cascade = {CascadeType.PERSIST})//Relación de uno a muchos con Reservation
+    @JsonIgnoreProperties({"motorbike", "message"})
     private List<Reservation> reservations;
 
 
+    //Constructor
 
-
-    public Motorbike(){
-        this.reservations=new ArrayList<Reservation>();
+    public Motorbike() {
+        this.reservations = new ArrayList<Reservation>();
         this.messages = new ArrayList<Message>();
     }
+
     public Motorbike(Integer id) {
         this.id = id;
-        this.reservations=new ArrayList<Reservation>();
+        this.reservations = new ArrayList<Reservation>();
         this.messages = new ArrayList<Message>();
     }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-
 
     public Integer getId() {
         return id;
@@ -70,6 +62,15 @@ public class Motorbike implements Serializable {
         this.name = name;
         this.year = year;
         this.description = description;
+        this.category = category;
+    }
+
+    //getters y seters
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
         this.category = category;
     }
 

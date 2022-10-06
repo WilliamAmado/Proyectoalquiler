@@ -6,22 +6,22 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name="message")
+@Table(name = "message")
 //@JsonIgnoreProperties({"motorbike","client"})
 public class Message implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idMessage;
-    @Column (length = 250)
+    @Column(length = 250)
     private String messageText;
     @ManyToOne
-    @JoinColumn(name="motorbikeId")
-    @JsonIgnoreProperties({"messages","reservations"})//ignorar mensaje y reservacion
+    @JoinColumn(name = "motorbikeId")
+    @JsonIgnoreProperties({"messages", "reservations", "client"})//ignorar mensaje y reservacion
     private Motorbike motorbike;
     @ManyToOne
-    @JoinColumn(name="client1")
-    @JsonIgnoreProperties({"messages","reservations"})//ignorar mensaje y reservacion
+    @JoinColumn(name = "client1")
+    @JsonIgnoreProperties({"messages", "reservations"})//ignorar mensaje y reservacion
     private Client client;
 
     public Message() {

@@ -16,68 +16,66 @@ public class ClientService {
     @Autowired
     private ClientRepository clientRepository;
 
-    public List<Client> getAll(){
+    public List<Client> getAll() {
         return clientRepository.getAll();
     }
 
-    public Optional<Client> getClient(int id){
+    public Optional<Client> getClient(int id) {
         return clientRepository.getClient(id);
     }
 
-    public Client save(Client firstClient){
-        if(firstClient.getIdClient()==null){
-            return   clientRepository.save(firstClient);
-        }
-        else {
-            Optional<Client> a =clientRepository.getClient(firstClient.getIdClient());
-            if(a.isPresent()){
-                return   firstClient;
-            }
-            else{
-                 return   clientRepository.save(firstClient);
+    public Client save(Client firstClient) {
+        if (firstClient.getIdClient() == null) {
+            return clientRepository.save(firstClient);
+        } else {
+            Optional<Client> a = clientRepository.getClient(firstClient.getIdClient());
+            if (a.isPresent()) {
+                return firstClient;
+            } else {
+                return clientRepository.save(firstClient);
             }
         }
     }
-    public Client Update(Client firstClient){
-        if(firstClient.getIdClient() != null){
-            Optional<Client> c =clientRepository.getClient(firstClient.getIdClient());
-            if(c.isPresent()){
-                if(firstClient.getName()!=null){
+
+    public Client update(Client firstClient) {
+        if (firstClient.getIdClient() != null) {
+            Optional<Client> c = clientRepository.getClient(firstClient.getIdClient());
+            if (c.isPresent()) {
+                if (firstClient.getName() != null) {
                     c.get().setName(firstClient.getName());
                 }
-                if(firstClient.getEmail()!=null){
+                if (firstClient.getEmail() != null) {
                     c.get().setEmail(firstClient.getEmail());
                 }
-                if(firstClient.getPassword()!=null){
+                if (firstClient.getPassword() != null) {
                     c.get().setPassword(firstClient.getPassword());
                 }
-                if(firstClient.getAge()!=null){
+                if (firstClient.getAge() != null) {
                     c.get().setAge(firstClient.getAge());
                 }
-                if(firstClient.getMessages()!=null){
+                if (firstClient.getMessages() != null) {
                     c.get().setMessages(firstClient.getMessages());
                 }
-                if(firstClient.getReservations()!=null){
+                if (firstClient.getReservations() != null) {
                     c.get().setReservations(firstClient.getReservations());
                 }
                 clientRepository.save(c.get());
-                    return c.get();
+                return c.get();
 
-            }
-            else{
+            } else {
                 return firstClient;
             }
-        }
-        else{
+        } else {
             return firstClient;
         }
     }
-    public boolean delete(int id){
-        boolean marca=false;
-        Optional<Client> c =clientRepository.getClient(id);
-        if(c.isPresent()){
+
+    public boolean delete(int id) {
+        boolean marca = false;
+        Optional<Client> c = clientRepository.getClient(id);
+        if (c.isPresent()) {
             clientRepository.delete(c.get());
-            marca=true;
+            marca = true;
         }
         return marca;
 

@@ -14,16 +14,19 @@ public class CategoryRepository {
     @Autowired
     private CategoryCrudRepository categoryCrudRepository;
 
-    public List<Category> getAll(){
+    public List<Category> getAll() {
         return (List<Category>) categoryCrudRepository.findAll();
     }
-    public Optional<Category> getCategory(int id){
+
+    public Optional<Category> getCategory(int id) {
         return categoryCrudRepository.findById(id);
     }
-    public Category save(Category categoria){
+
+    public Category save(Category categoria) {
         return categoryCrudRepository.save(categoria);
     }
-    public void delete(Category categoria){
+
+    public void delete(Category categoria) {
         categoryCrudRepository.delete(categoria);
     }
 }
