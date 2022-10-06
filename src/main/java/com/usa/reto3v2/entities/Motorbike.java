@@ -18,9 +18,10 @@ public class Motorbike implements Serializable {
     //atributos de tabla
     private Integer id;
     @Column(length = 45)
-    private String brand;
-    @Column(length = 45)
     private String name;
+    @Column(length = 45)
+    private String brand;
+
     //@Column(name="'year'")
     private Integer year;
     @Column(length = 250)
