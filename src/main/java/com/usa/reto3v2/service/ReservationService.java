@@ -37,7 +37,7 @@ public class ReservationService {
             }
         }
     }
-    public Reservation Update(Reservation reservacion){
+    public Reservation update(Reservation reservacion){
         if(reservacion.getIdReservation() != null){
             Optional<Reservation> rs =reservationRepository.getReservation(reservacion.getIdReservation());
             if(rs.isPresent()){

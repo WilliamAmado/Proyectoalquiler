@@ -38,19 +38,6 @@ public class AdminService {
         }
     }
 
-    public Admin saveold(Admin administrador) {
-        if (administrador.getId() == null) {
-            return adminRepository.save(administrador);
-        } else {
-            Optional<Admin> a = adminRepository.getAdmin(administrador.getId());
-            if (a.isPresent()) {
-                return a.get();
-            } else {
-                return adminRepository.save(administrador);
-            }
-        }
-    }
-
     public Admin Update(Admin administrador) {
         if (administrador.getId() != null) {
             Optional<Admin> ad = adminRepository.getAdmin(administrador.getId());

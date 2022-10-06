@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 public class ClientRepository {
-    @Autowired
+@Autowired
     private ClientCrudRepository clientCrudRepository;
 
     public  List<Client> getAll(){

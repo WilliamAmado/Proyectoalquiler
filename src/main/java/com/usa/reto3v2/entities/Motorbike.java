@@ -21,6 +21,7 @@ public class Motorbike implements Serializable {
     private String brand;
     @Column (length = 45)
     private String name;
+    //@Column(name="'year'")
     private Integer year;
     @Column (length = 250)
     private String description;
@@ -34,7 +35,7 @@ public class Motorbike implements Serializable {
     @JsonIgnoreProperties({"motorbike","client"})
     private List<Message> messages;
     @OneToMany(mappedBy = "motorbike",cascade = {CascadeType.PERSIST})
-    @JsonIgnoreProperties({"motorbike","messages"})
+    @JsonIgnoreProperties({"motorbike","message"})
     private List<Reservation> reservations;
 
 
