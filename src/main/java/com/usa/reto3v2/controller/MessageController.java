@@ -3,6 +3,7 @@ package com.usa.reto3v2.controller;
 import com.usa.reto3v2.entities.Admin;
 import com.usa.reto3v2.entities.Message;
 import com.usa.reto3v2.entities.Message;
+import com.usa.reto3v2.entities.Motorbike;
 import com.usa.reto3v2.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,8 +25,19 @@ public class MessageController {
     public List<Message> getAll() {
         return messageService.getAll();
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<Message> get(@PathVariable Integer id) {
+        try {
+            Message message = messageService.get(id);
+            return new ResponseEntity<Message>(message, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<Message>(HttpStatus.NOT_FOUND);
+        }
+
+    }
 
     @PostMapping("/save")
+    @ResponseStatus(HttpStatus.CREATED)
     public Message save(@RequestBody Message ad) {
         return messageService.save(ad);
     }
@@ -37,9 +49,10 @@ public class MessageController {
     }
 
 
-    @DeleteMapping("/delete/{idMessage}")
-    public boolean deleteMessage(@PathVariable Integer idMessage) {
-        return messageService.delete(idMessage);
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public boolean delete(@PathVariable Integer id) {
+        return messageService.delete(id);
     }
 
     @PutMapping("/update")

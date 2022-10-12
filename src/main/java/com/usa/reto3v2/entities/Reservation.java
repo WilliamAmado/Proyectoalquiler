@@ -8,31 +8,30 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
-@Table(name="reservation")
+@Table(name = "reservation")
 public class Reservation implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idReservation;
-    @Column (length = 58)
+    @Column(length = 58)
     private Date startDate;
+    @Column(length = 58)
     private Date devolutionDate;
-    private String status="created";
+    private String status = "created";
     //private int score;
 
     @ManyToOne
-    @JoinColumn(name="motorbikeId")
+    @JoinColumn(name = "motorbikeId")
     @JsonIgnoreProperties("reservations")
     private Motorbike motorbike;
     @ManyToOne
-    @JoinColumn(name="clientId")
-    @JsonIgnoreProperties({"reservations","messages"})//ignorar reservacion y mensaje
+    @JoinColumn(name = "clientId")
+    @JsonIgnoreProperties({"reservations", "messages"})//ignorar reservacion y mensaje
     private Client client;
-    @OneToOne(cascade = {CascadeType.REMOVE},mappedBy="reservation")
+    @OneToOne(cascade = {CascadeType.REMOVE}, mappedBy = "reservation")
     @JsonIgnoreProperties("reservation")//ignorar reservacion
     private Score score;
-
-
 
 
     public Reservation() {

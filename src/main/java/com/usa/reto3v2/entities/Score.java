@@ -6,14 +6,14 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name="score")
+@Table(name = "score")
 public class Score implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idScore;
-    @Column (nullable = false)
+    @Column(nullable = false)
     private String messageText;
-    @Column (nullable = false)
+    @Column(nullable = false)
     private Integer stars;
 
     @OneToOne
