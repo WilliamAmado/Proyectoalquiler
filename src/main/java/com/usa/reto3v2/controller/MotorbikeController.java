@@ -34,7 +34,6 @@ public class MotorbikeController {
         }
 
     }
-
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
     public Motorbike save(@RequestBody Motorbike mt) {
@@ -48,9 +47,14 @@ public class MotorbikeController {
     }
 
 
-    @DeleteMapping("/delete/{idCient}")
+    /*@DeleteMapping("/delete/{idMotorbike}")
     public boolean deleteMotorbike(@PathVariable Integer idMotorbike) {
         return motorbikeService.delete(idMotorbike);
+    }*/
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public boolean delete(@PathVariable Integer id) {
+        return motorbikeService.delete(id);
     }
 
     @PutMapping("/update")

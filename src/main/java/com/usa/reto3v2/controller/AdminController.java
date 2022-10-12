@@ -31,10 +31,20 @@ public class AdminController {
             return new ResponseEntity<Admin>(HttpStatus.NOT_FOUND);
         }
     }
-
     @PostMapping("/save")
-    public Admin save(@RequestBody Admin ad) {
-        return adminService.save(ad);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Admin save(@RequestBody Admin p){
+        return adminService.save(p);
+    }
+    @PutMapping("/update")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Admin update(@RequestBody Admin motorbike) {
+        return adminService.Update(motorbike);
+    }
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public boolean delete (@PathVariable("id") int id){
+        return adminService.delete(id);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.usa.reto3v2.controller;
 
+import com.usa.reto3v2.entities.Client;
 import com.usa.reto3v2.entities.Reservation;
 import com.usa.reto3v2.entities.Reservation;
 import com.usa.reto3v2.service.ReservationService;
@@ -24,6 +25,16 @@ public class ReservationController {
         return reservationService.getAll();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Reservation> get(@PathVariable Integer id) {
+        try {
+            Reservation reservation = reservationService.get(id);
+            return new ResponseEntity<Reservation>(reservation, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<Reservation>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
     public Reservation save(@RequestBody Reservation rs) {
@@ -37,9 +48,11 @@ public class ReservationController {
     }
 
 
-    @DeleteMapping("/delete/{idReservation}")
-    public boolean deleteReservation(@PathVariable Integer idReservation) {
-        return reservationService.delete(idReservation);
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public boolean delete(@PathVariable Integer id) {
+        return reservationService.delete(id);
     }
 
     @PutMapping("/update")
