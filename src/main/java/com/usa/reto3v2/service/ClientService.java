@@ -1,6 +1,7 @@
 package com.usa.reto3v2.service;
 
 import com.usa.reto3v2.entities.Client;
+import com.usa.reto3v2.entities.Motorbike;
 import com.usa.reto3v2.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,12 @@ public class ClientService {
         return clientRepository.getAll();
     }
 
+
     public Optional<Client> getClient(int id) {
         return clientRepository.getClient(id);
+    }
+    public Client get(Integer id) {
+        return clientRepository.getClient(id).get();
     }
 
     public Client save(Client firstClient) {

@@ -1,6 +1,7 @@
 package com.usa.reto3v2.service;
 
 import com.usa.reto3v2.entities.Message;
+import com.usa.reto3v2.entities.Motorbike;
 import com.usa.reto3v2.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,10 @@ public class MessageService {
 
     public List<Message> getAll() {
         return messageRepository.getAll();
+    }
+
+    public Message get(Integer id) {
+        return messageRepository.getMessage(id).get();
     }
 
     public Optional<Message> getMessage(int id) {

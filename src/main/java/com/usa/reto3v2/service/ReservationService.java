@@ -1,5 +1,6 @@
 package com.usa.reto3v2.service;
 
+import com.usa.reto3v2.entities.Motorbike;
 import com.usa.reto3v2.entities.Reservation;
 import com.usa.reto3v2.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class ReservationService {
 
     public List<Reservation> getAll() {
         return reservationRepository.getAll();
+    }
+    public Reservation get(Integer id) {
+        return reservationRepository.getReservation(id).get();
     }
 
     public Optional<Reservation> getReservation(int id) {

@@ -2,6 +2,7 @@ package com.usa.reto3v2.controller;
 
 import com.usa.reto3v2.entities.Admin;
 import com.usa.reto3v2.entities.Category;
+import com.usa.reto3v2.entities.Motorbike;
 import com.usa.reto3v2.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,17 @@ public class CategoryController {
         return categoryService.getAll();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Category> get(@PathVariable Integer id) {
+        try {
+            Category category = categoryService.get(id);
+            return new ResponseEntity<Category>(category, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<Category>(HttpStatus.NOT_FOUND);
+        }
+
+    }
+
     /*@PostMapping("/save")
     public void save(@RequestBody Category ct){
         categoryService.save(ct);*/
@@ -40,9 +52,14 @@ public class CategoryController {
     }
 
 
-    @DeleteMapping("/delete/{idCategory}")
+    /*@DeleteMapping("/delete/{idCategory}")
     public boolean deleteAdmin(@PathVariable Integer idAdmin) {
         return categoryService.delete(idAdmin);
+    }*/
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public boolean delete(@PathVariable Integer id) {
+        return categoryService.delete(id);
     }
 
     @PutMapping("/update")

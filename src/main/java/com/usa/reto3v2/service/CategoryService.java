@@ -1,6 +1,7 @@
 package com.usa.reto3v2.service;
 
 import com.usa.reto3v2.entities.Category;
+import com.usa.reto3v2.entities.Motorbike;
 import com.usa.reto3v2.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,9 @@ public class CategoryService {
     //public List<Category> getAll(){
     //return categoryRepository.getAll();
     //}
-
+    public Category get(Integer id) {
+        return categoryRepository.getCategory(id).get();
+    }
     public Optional<Category> getCategory(int id) {
         return categoryRepository.getCategory(id);
     }

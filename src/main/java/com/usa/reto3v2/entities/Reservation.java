@@ -16,6 +16,7 @@ public class Reservation implements Serializable {
     private Integer idReservation;
     @Column(length = 58)
     private Date startDate;
+    @Column(length = 58)
     private Date devolutionDate;
     private String status = "created";
     //private int score;
