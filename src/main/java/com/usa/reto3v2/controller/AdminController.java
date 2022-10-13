@@ -12,6 +12,7 @@ import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/Admin")
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class AdminController {
 
     @Autowired
@@ -22,19 +23,18 @@ public class AdminController {
         return adminService.getAll();
     }
 
+
     @GetMapping("/{id}")
     public ResponseEntity<Admin> get(@PathVariable Integer id) {
         try {
             Admin admin = adminService.getAdmin(id).get();
-            return new ResponseEntity<Admin>(admin, HttpStatus.OK);
+            return new ResponseEntity<>(admin, HttpStatus.OK);
         } catch (NoSuchElementException e) {
-            return new ResponseEntity<Admin>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
     @PostMapping("/save")
     public Admin save(@RequestBody Admin ad) {
         return adminService.save(ad);
     }
-
 }

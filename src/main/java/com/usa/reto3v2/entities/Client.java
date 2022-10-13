@@ -10,7 +10,6 @@ import java.util.List;
 @Entity
 @Table(name = "client")
 public class Client implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idClient;
@@ -21,52 +20,37 @@ public class Client implements Serializable {
     @Column(length = 250)
     private String name;
     private Integer age;
-
-//arreglo de messages en client
-
-    @OneToMany(mappedBy = "client", cascade = {CascadeType.PERSIST})
-    @JsonIgnoreProperties("client")//ignorar cliente
+    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "client")
+    @JsonIgnoreProperties("client")
     private List<Message> messages;
-    @OneToMany(mappedBy = "client", cascade = {CascadeType.PERSIST})
-    @JsonIgnoreProperties("client")//ignorar cliente
+    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "client")
+    @JsonIgnoreProperties("client")
     private List<Reservation> reservations;
 
-
-    public Client() {
-        this.reservations = new ArrayList<Reservation>();
-        this.messages = new ArrayList<Message>();
+    public Client(){
+        this.reservations = new ArrayList<>();
+        this.messages = new ArrayList<>();
     }
-
     public Client(Integer idClient) {
         this.idClient = idClient;
-        this.reservations = new ArrayList<Reservation>();
-        this.messages = new ArrayList<Message>();
+        this.reservations = new ArrayList<>();
+        this.messages = new ArrayList<>();
     }
-
     public Client(Integer id, String name, String email, String password, Integer age) {
         this.idClient = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.age = age;
-        this.reservations = new ArrayList<Reservation>();
-        this.messages = new ArrayList<Message>();
+        this.reservations = new ArrayList<>();
+        this.messages = new ArrayList<>();
     }
-
     public Integer getIdClient() {
         return idClient;
     }
 
     public void setIdClient(Integer idClient) {
         this.idClient = idClient;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getEmail() {
@@ -85,20 +69,20 @@ public class Client implements Serializable {
         this.password = password;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Integer getAge() {
         return age;
     }
 
     public void setAge(Integer age) {
         this.age = age;
-    }
-
-    public List<Reservation> getReservations() {
-        return reservations;
-    }
-
-    public void setReservations(List<Reservation> reservations) {
-        this.reservations = reservations;
     }
 
     public List<Message> getMessages() {
@@ -108,4 +92,13 @@ public class Client implements Serializable {
     public void setMessages(List<Message> messages) {
         this.messages = messages;
     }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
 }
+

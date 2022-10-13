@@ -12,64 +12,57 @@ import java.util.Optional;
 @Service
 @Transactional
 public class CategoryService {
-
     @Autowired
     private CategoryRepository categoryRepository;
-
-    public List<Category> getAll() {
+    public List<Category> getAll(){
         return categoryRepository.getAll();
     }
-    //public List<Category> getAll(){
-    //return categoryRepository.getAll();
-    //}
-
-    public Optional<Category> getCategory(int id) {
+    public Optional<Category> getCategory(int id){
         return categoryRepository.getCategory(id);
     }
-
-    public Category save(Category categoria) {
-        if (categoria.getId() == null) {
-            return categoryRepository.save(categoria);
-        } else {
-            Optional<Category> c = categoryRepository.getCategory(categoria.getId());
-            if (c.isPresent()) {
-                return categoria;
-            } else {
-                return categoryRepository.save(categoria);
+    public Category save(Category p){
+        if(p.getId()==null){
+            return categoryRepository.save(p);
+        }else{
+            Optional<Category> e = categoryRepository.getCategory(p.getId());
+            if(e.isPresent()){
+                return p;
+            }else{
+                return categoryRepository.save(p);
             }
         }
     }
+    public Category update(Category p){
+        if(p.getId()!=null){
+            Optional<Category> q = categoryRepository.getCategory(p.getId());
+            if(q.isPresent()){
+                if(p.getName()!=null){
+                    q.get().setName(p.getName());
+                }
+                if(p.getDescription()!=null){
+                    q.get().setDescription(p.getDescription());
+                }
+                if(p.getMotorbikes()!=null){
+                    q.get().setMotorbikes(p.getMotorbikes());
+                }
 
-    public Category update(Category categoria) {
-        if (categoria.getId() != null) {
-            Optional<Category> ct = categoryRepository.getCategory(categoria.getId());
-            if (ct.isPresent()) {
-                if (categoria.getName() != null) {
-                    ct.get().setName(categoria.getName());
-                }
-                if (categoria.getDescription() != null) {
-                    ct.get().setDescription(categoria.getDescription());
-                }
-                if (categoria.getMotorbikes() != null) {
-                    ct.get().setMotorbikes(categoria.getMotorbikes());
-                }
-                categoryRepository.save(ct.get());
-                return ct.get();
-            } else {
-                return categoria;
+                categoryRepository.save(q.get());
+                return q.get();
+            }else{
+                return p;
             }
-        } else {
-            return categoria;
+        }else{
+            return p;
         }
     }
 
-    public boolean delete(int id) {
-        boolean marca = false;
-        Optional<Category> ctr = categoryRepository.getCategory(id);
-        if (ctr.isPresent()) {
-            categoryRepository.delete(ctr.get());
-            marca = true;
+    public boolean delete(int id){
+        boolean flag=false;
+        Optional<Category>p= categoryRepository.getCategory(id);
+        if(p.isPresent()){
+            categoryRepository.delete(p.get());
+            flag=true;
         }
-        return marca;
+        return flag;
     }
 }

@@ -1,6 +1,5 @@
 package com.usa.reto3v2.controller;
 
-import com.usa.reto3v2.entities.Admin;
 import com.usa.reto3v2.entities.Category;
 import com.usa.reto3v2.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,25 +12,21 @@ import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/Category")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class CategoryController {
-
     @Autowired
     private CategoryService categoryService;
-
     @GetMapping("/all")
-    public List<Category> getAll() {
+    public List<Category> getAll(){
         return categoryService.getAll();
     }
 
-    /*@PostMapping("/save")
-    public void save(@RequestBody Category ct){
-        categoryService.save(ct);*/
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public Category save(@RequestBody Category ct) {
-        return categoryService.save(ct);
+    public Category save(@RequestBody Category p){
+        return categoryService.save(p);
     }
+
 
     @PostMapping("/all")
     @ResponseStatus(HttpStatus.CREATED)
@@ -39,10 +34,10 @@ public class CategoryController {
         return categoryService.getAll();
     }
 
-
-    @DeleteMapping("/delete/{idCategory}")
-    public boolean deleteAdmin(@PathVariable Integer idAdmin) {
-        return categoryService.delete(idAdmin);
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public boolean deleteCategory(@PathVariable Integer id) {
+        return categoryService.delete(id);
     }
 
     @PutMapping("/update")
@@ -53,12 +48,13 @@ public class CategoryController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Category> update(@PathVariable Integer id) {
-        Category category = categoryService.getCategory(id).get();
+        Category category;
+
         try {
             category = categoryService.getCategory(id).get();
-            return new ResponseEntity<Category>(category, HttpStatus.OK);
+            return new ResponseEntity<>(category, HttpStatus.OK);
         } catch (NoSuchElementException e) {
-            return new ResponseEntity<Category>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }

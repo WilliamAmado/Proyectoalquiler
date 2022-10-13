@@ -1,7 +1,6 @@
 package com.usa.reto3v2.controller;
 
 import com.usa.reto3v2.entities.Client;
-import com.usa.reto3v2.entities.Client;
 import com.usa.reto3v2.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,21 +12,23 @@ import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/Client")
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class ClientController {
-
     @Autowired
     private ClientService clientService;
-
     @GetMapping("/all")
-    public List<Client> getAll() {
+    public List<Client> getAll(){
         return clientService.getAll();
     }
 
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public Client save(@RequestBody Client c) {
-        return clientService.save(c);
+    public Client save(@RequestBody Client p){
+        return clientService.save(p);
     }
+
+
+
 
     @PostMapping("/all")
     @ResponseStatus(HttpStatus.CREATED)
@@ -35,8 +36,8 @@ public class ClientController {
         return clientService.getAll();
     }
 
-
-    @DeleteMapping("/delete/{idClient}")
+    @DeleteMapping("/{idClient}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public boolean deleteClient(@PathVariable Integer idClient) {
         return clientService.delete(idClient);
     }
@@ -49,12 +50,12 @@ public class ClientController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Client> update(@PathVariable Integer id) {
-        Client client = clientService.getClient(id).get();
+        Client client;
         try {
             client = clientService.getClient(id).get();
-            return new ResponseEntity<Client>(client, HttpStatus.OK);
+            return new ResponseEntity<>(client, HttpStatus.OK);
         } catch (NoSuchElementException e) {
-            return new ResponseEntity<Client>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }

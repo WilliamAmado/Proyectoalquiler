@@ -1,7 +1,5 @@
 package com.usa.reto3v2.controller;
 
-import com.usa.reto3v2.entities.Admin;
-import com.usa.reto3v2.entities.Message;
 import com.usa.reto3v2.entities.Message;
 import com.usa.reto3v2.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,49 +12,50 @@ import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/Message")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class MessageController {
-
     @Autowired
     private MessageService messageService;
-
     @GetMapping("/all")
-    public List<Message> getAll() {
+    public List<Message> getAll(){
         return messageService.getAll();
     }
 
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public Message save(@RequestBody Message ad) {
-        return messageService.save(ad);
+    public Message save(@RequestBody Message p){
+        return messageService.save(p);
     }
+
+
+
+
 
     @PostMapping("/all")
     @ResponseStatus(HttpStatus.CREATED)
     public List<Message> getAllClient2() {
         return messageService.getAll();
     }
-
-
-    @DeleteMapping("/delete/{idMessage}")
+    @DeleteMapping("/{idMessage}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public boolean deleteMessage(@PathVariable Integer idMessage) {
         return messageService.delete(idMessage);
     }
-
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
     public Message updateMessage(@RequestBody Message message) {
-        return messageService.Update(message);
+        return messageService.update(message);
     }
-
     @PutMapping("/{id}")
     public ResponseEntity<Message> update(@PathVariable Integer id) {
-        Message message = messageService.getMessage(id).get();
+        Message message;
         try {
             message = messageService.getMessage(id).get();
-            return new ResponseEntity<Message>(message, HttpStatus.OK);
+            return new ResponseEntity<>(message, HttpStatus.OK);
         } catch (NoSuchElementException e) {
-            return new ResponseEntity<Message>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+
 }

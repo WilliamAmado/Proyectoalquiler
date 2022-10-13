@@ -12,65 +12,57 @@ import java.util.Optional;
 @Service
 @Transactional
 public class MessageService {
-
     @Autowired
     private MessageRepository messageRepository;
-
-    public List<Message> getAll() {
+    public List<Message> getAll(){
         return messageRepository.getAll();
     }
-
-    public Optional<Message> getMessage(int id) {
+    public Optional<Message> getMessage(int id){
         return messageRepository.getMessage(id);
     }
-
-    public Message save(Message mensaje) {
-        if (mensaje.getIdMessage() == null) {
-            return messageRepository.save(mensaje);
-        } else {
-            Optional<Message> m = messageRepository.getMessage(mensaje.getIdMessage());
-            if (m.isPresent()) {
-                return mensaje;
-            } else {
-                return messageRepository.save(mensaje);
+    public Message save(Message p){
+        if(p.getIdMessage()==null){
+            return messageRepository.save(p);
+        }else{
+            Optional<Message> e = messageRepository.getMessage(p.getIdMessage());
+            if(e.isPresent()){
+                return p;
+            }else{
+                return messageRepository.save(p);
             }
         }
     }
-
-    public Message Update(Message mensaje) {
-        if (mensaje.getIdMessage() != null) {
-            Optional<Message> ms = messageRepository.getMessage(mensaje.getIdMessage());
-            if (ms.isPresent()) {
-                if (mensaje.getMessageText() != null) {
-                    ms.get().setMessageText(mensaje.getMessageText());
+    public Message update(Message p){
+        if(p.getIdMessage()!=null){
+            Optional<Message> q = messageRepository.getMessage(p.getIdMessage());
+            if(q.isPresent()){
+                if(p.getMessageText()!=null){
+                    q.get().setMessageText(p.getMessageText());
                 }
-                if (mensaje.getMotorbike() != null) {
-                    ms.get().setMotorbike(mensaje.getMotorbike());
+                if(p.getMotorbike()!=null){
+                    q.get().setMotorbike(p.getMotorbike());
                 }
-                if (mensaje.getClient() != null) {
-                    ms.get().setClient(mensaje.getClient());
+                if(p.getClient()!=null){
+                    q.get().setClient(p.getClient());
                 }
 
-
-                messageRepository.save(ms.get());
-                return ms.get();
-
-            } else {
-                return mensaje;
+                messageRepository.save(q.get());
+                return q.get();
+            }else{
+                return p;
             }
-        } else {
-            return mensaje;
+        }else{
+            return p;
         }
     }
 
-    public boolean delete(int id) {
-        boolean marca = false;
-        Optional<Message> m = messageRepository.getMessage(id);
-        if (m.isPresent()) {
-            messageRepository.delete(m.get());
-            marca = true;
+    public boolean delete(int id){
+        boolean flag=false;
+        Optional<Message>p= messageRepository.getMessage(id);
+        if(p.isPresent()){
+            messageRepository.delete(p.get());
+            flag=true;
         }
-        return marca;
-
+        return flag;
     }
 }

@@ -12,77 +12,74 @@ import java.util.Optional;
 @Service
 @Transactional
 public class MotorbikeService {
-
     @Autowired
     private MotorbikeRepository motorbikeRepository;
 
-    public List<Motorbike> getAll() {
+    public List<Motorbike> getAll(){
         return motorbikeRepository.getAll();
     }
 
     public Motorbike get(Integer id) {
         return motorbikeRepository.getMotorbike(id).get();
     }
-
     public Optional<Motorbike> getMotorbike(int id) {
         return motorbikeRepository.getMotorbike(id);
     }
-
-    public Motorbike save(Motorbike moto) {
-        if (moto.getId() == null) {
-            return motorbikeRepository.save(moto);
-        } else {
-            Optional<Motorbike> m = motorbikeRepository.getMotorbike(moto.getId());
-            if (m.isPresent()) {
-                return moto;
-            } else {
-                return motorbikeRepository.save(moto);
+    public Motorbike save(Motorbike p){
+        if(p.getId()==null){
+            return motorbikeRepository.save(p);
+        }else{
+            Optional<Motorbike> e = motorbikeRepository.getMotorbike(p.getId());
+            if(e.isPresent()){
+                return p;
+            }else{
+                return motorbikeRepository.save(p);
             }
         }
     }
-
-    public Motorbike update(Motorbike moto) {
-        if (moto.getId() != null) {
-            Optional<Motorbike> mt = motorbikeRepository.getMotorbike(moto.getId());
-            if (mt.isPresent()) {
-                if (moto.getName() != null) {
-                    mt.get().setName(moto.getName());
+    public Motorbike update(Motorbike p){
+        if(p.getId()!=null){
+            Optional<Motorbike> q = motorbikeRepository.getMotorbike(p.getId());
+            if(q.isPresent()){
+                if(p.getBrand()!=null){
+                    q.get().setBrand(p.getBrand());
                 }
-                if (moto.getBrand() != null) {
-                    mt.get().setBrand(moto.getBrand());
+                if(p.getName()!=null){
+                    q.get().setName(p.getName());
                 }
-                if (moto.getYear() != null) {
-                    mt.get().setYear(moto.getYear());
+                if(p.getYear()!=null){
+                    q.get().setYear(p.getYear());
                 }
-                if (moto.getDescription() != null) {
-                    mt.get().setDescription(moto.getDescription());
+                if(p.getDescription()!=null){
+                    q.get().setDescription(p.getDescription());
                 }
-                if (moto.getCategory() != null) {
-                    mt.get().setCategory(moto.getCategory());
+                if(p.getCategory()!=null){
+                    q.get().setCategory(p.getCategory());
                 }
-                if (moto.getMessages() != null) {
-                    mt.get().setMessages(moto.getMessages());
+                if(p.getMessages()!=null){
+                    q.get().setMessages(p.getMessages());
                 }
-                if (moto.getReservations() != null) {
-                    mt.get().setReservations(moto.getReservations());
+                if(p.getReservations()!=null){
+                    q.get().setReservations(p.getReservations());
                 }
-                motorbikeRepository.save(mt.get());
-                return mt.get();
-            } else {
-                return moto;
+                motorbikeRepository.save(q.get());
+                return q.get();
+            }else{
+                return p;
             }
+        }else{
+            return p;
         }
-        return moto;
-
     }
 
-    public boolean delete(int id) {
-        boolean marca = false;
-        Optional<Motorbike> mt = motorbikeRepository.getMotorbike(id);
-        if (mt.isPresent()) {
-            motorbikeRepository.delete(mt.get());
-            marca = true;
+    public boolean delete(int id){
+        boolean flag=false;
+        Optional<Motorbike>p= motorbikeRepository.getMotorbike(id);
+        if(p.isPresent()){
+            motorbikeRepository.delete(p.get());
+            flag=true;
         }
-        return marca;
+        return flag;
     }
+
 }
