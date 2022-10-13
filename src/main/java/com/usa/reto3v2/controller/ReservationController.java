@@ -1,6 +1,8 @@
 package com.usa.reto3v2.controller;
 
 import com.usa.reto3v2.entities.Client;
+import com.usa.reto3v2.entities.DTOs.CountClient;
+import com.usa.reto3v2.entities.DTOs.CountStatus;
 import com.usa.reto3v2.entities.Reservation;
 import com.usa.reto3v2.entities.Reservation;
 import com.usa.reto3v2.service.ReservationService;
@@ -70,6 +72,18 @@ public class ReservationController {
         } catch (NoSuchElementException e) {
             return new ResponseEntity<Reservation>(HttpStatus.NOT_FOUND);
         }
+    }
+    @GetMapping("/report-clients")
+    public List<CountClient> getReportTopClients(){
+        return reservationService.getTopClients();
+    }
+    @GetMapping("/report-dates/{dateOne}/{dateTwo}")
+    public List<Reservation> getReportReservationsDate(@PathVariable("dateOne") String dateOne, @PathVariable("dateTwo") String dateTwo){
+        return reservationService.getReservationPeriod(dateOne, dateTwo);
+    }
+    @GetMapping("/report-status")
+    public CountStatus getReportStatusReservations(){
+        return  reservationService.getReservationsStatus();
     }
 
 }
