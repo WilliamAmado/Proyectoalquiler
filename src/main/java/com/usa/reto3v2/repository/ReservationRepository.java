@@ -1,10 +1,13 @@
 package com.usa.reto3v2.repository;
 
+import com.usa.reto3v2.entities.DTOs.CountClient;
 import com.usa.reto3v2.entities.Reservation;
 import com.usa.reto3v2.repository.crudRepository.ReservationCrudRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 @Repository
@@ -25,7 +28,7 @@ public class ReservationRepository {
         reservationCrudRepository.delete(p);
     }
 
-    /*public List<CountClient> getClientCasher(){
+    public List<CountClient> getClientCasher(){
         List<CountClient> respuesta = new ArrayList<>();
         List<Object[]> reporte = reservationCrudRepository.countTotalReservationsByClient();
         for(int i = 0; i<reporte.size(); i++){
@@ -38,5 +41,5 @@ public class ReservationRepository {
     }
     public List<Reservation> getReservationsByStatus(String status){
         return reservationCrudRepository.findAllByStatus(status);
-    }*/
+    }
 }

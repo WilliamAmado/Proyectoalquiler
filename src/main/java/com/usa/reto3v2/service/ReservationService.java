@@ -1,11 +1,17 @@
 package com.usa.reto3v2.service;
 
+import com.usa.reto3v2.entities.DTOs.CountClient;
+import com.usa.reto3v2.entities.DTOs.CountStatus;
 import com.usa.reto3v2.entities.Reservation;
 import com.usa.reto3v2.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -78,7 +84,7 @@ public class ReservationService {
         }
         return flag;
     }
-/*
+
     public List<CountClient> getClientCasher(){
         return reservationRepository.getClientCasher();
     }
@@ -103,5 +109,5 @@ public class ReservationService {
         List<Reservation> reservascompletadas = reservationRepository.getReservationsByStatus("completed");
         List<Reservation> reservascanceladas = reservationRepository.getReservationsByStatus("cancelled");
         return new CountStatus((long) reservascompletadas.size(), (long) reservascanceladas.size());
-    }*/
+    }
 }

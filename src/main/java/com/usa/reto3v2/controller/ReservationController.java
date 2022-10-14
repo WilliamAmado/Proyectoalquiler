@@ -1,5 +1,7 @@
 package com.usa.reto3v2.controller;
 
+import com.usa.reto3v2.entities.DTOs.CountClient;
+import com.usa.reto3v2.entities.DTOs.CountStatus;
 import com.usa.reto3v2.entities.Reservation;
 import com.usa.reto3v2.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +57,6 @@ public class ReservationController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-/*
     @GetMapping("/report-clients")
     public  List<CountClient> getClientCasher(){
         return reservationService.getClientCasher();
@@ -67,5 +68,5 @@ public class ReservationController {
     @GetMapping("/report-status")
     public CountStatus getReportStatus(){
         return reservationService.getReservationsStatus();
-    }*/
+    }
 }
