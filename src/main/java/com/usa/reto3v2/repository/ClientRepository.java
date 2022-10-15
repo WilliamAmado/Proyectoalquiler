@@ -7,25 +7,20 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-
 @Repository
 public class ClientRepository {
-@Autowired
+    @Autowired
     private ClientCrudRepository clientCrudRepository;
-
-    public List<Client> getAll() {
+    public List<Client> getAll(){
         return (List<Client>) clientCrudRepository.findAll();
     }
-
-    public Optional<Client> getClient(int id) {
-        return clientCrudRepository.findById(id);
+    public Optional<Client> getClient(int idClient){
+        return clientCrudRepository.findById(idClient);
     }
-
-    public Client save(Client firstClient) {
-        return clientCrudRepository.save(firstClient);
+    public Client save(Client c){
+        return clientCrudRepository.save(c);
     }
-
-    public void delete(Client firstClient) {
-        clientCrudRepository.delete(firstClient);
+    public void delete(Client c){
+        clientCrudRepository.delete(c);
     }
 }

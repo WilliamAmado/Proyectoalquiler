@@ -1,5 +1,6 @@
 package com.usa.reto3v2.controller;
 
+
 import com.usa.reto3v2.entities.Admin;
 import com.usa.reto3v2.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/Admin")
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class AdminController {
 
     @Autowired
@@ -22,29 +24,18 @@ public class AdminController {
         return adminService.getAll();
     }
 
+
     @GetMapping("/{id}")
     public ResponseEntity<Admin> get(@PathVariable Integer id) {
         try {
             Admin admin = adminService.getAdmin(id).get();
-            return new ResponseEntity<Admin>(admin, HttpStatus.OK);
+            return new ResponseEntity<>(admin, HttpStatus.OK);
         } catch (NoSuchElementException e) {
-            return new ResponseEntity<Admin>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
     @PostMapping("/save")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Admin save(@RequestBody Admin p){
-        return adminService.save(p);
+    public Admin save(@RequestBody Admin ad) {
+        return adminService.save(ad);
     }
-    @PutMapping("/update")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Admin update(@RequestBody Admin motorbike) {
-        return adminService.Update(motorbike);
-    }
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public boolean delete (@PathVariable("id") int id){
-        return adminService.delete(id);
-    }
-
 }

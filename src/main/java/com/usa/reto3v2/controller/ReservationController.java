@@ -1,78 +1,47 @@
 package com.usa.reto3v2.controller;
 
-import com.usa.reto3v2.entities.Client;
 import com.usa.reto3v2.entities.DTOs.CountClient;
 import com.usa.reto3v2.entities.DTOs.CountStatus;
-import com.usa.reto3v2.entities.Reservation;
+import com.usa.reto3v2.entities.Message;
 import com.usa.reto3v2.entities.Reservation;
 import com.usa.reto3v2.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/Reservation")
-@CrossOrigin(origins = "*")
 public class ReservationController {
-
     @Autowired
     private ReservationService reservationService;
-
     @GetMapping("/all")
-    public List<Reservation> getAll() {
+    public List<Reservation> getAll(){
         return reservationService.getAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Reservation> get(@PathVariable Integer id) {
-        try {
-            Reservation reservation = reservationService.get(id);
-            return new ResponseEntity<Reservation>(reservation, HttpStatus.OK);
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity<Reservation>(HttpStatus.NOT_FOUND);
-        }
+    public Optional<Reservation> getCategory (@PathVariable("id") int Id) {
+        return reservationService.getReservation(Id);
     }
-
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public Reservation save(@RequestBody Reservation rs) {
-        return reservationService.save(rs);
+    public Reservation save(@RequestBody Reservation p){
+        return reservationService.save(p);
     }
-
-    @PostMapping("/all")
-    @ResponseStatus(HttpStatus.CREATED)
-    public List<Reservation> getAllReservation2() {
-        return reservationService.getAll();
-    }
-
-
-
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public boolean delete(@PathVariable Integer id) {
-        return reservationService.delete(id);
-    }
-
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
-    public Reservation updateReservation(@RequestBody Reservation reservation) {
+    public Reservation update(@RequestBody Reservation reservation) {
         return reservationService.update(reservation);
     }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Reservation> update(@PathVariable Integer id) {
-        Reservation reservation = reservationService.getReservation(id).get();
-        try {
-            reservation = reservationService.getReservation(id).get();
-            return new ResponseEntity<Reservation>(reservation, HttpStatus.OK);
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity<Reservation>(HttpStatus.NOT_FOUND);
-        }
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public boolean delete (@PathVariable("id") int id){
+        return reservationService.deleteReservation(id);
     }
+
     @GetMapping("/report-clients")
     public List<CountClient> getReportTopClients(){
         return reservationService.getTopClients();
@@ -85,5 +54,4 @@ public class ReservationController {
     public CountStatus getReportStatusReservations(){
         return  reservationService.getReservationsStatus();
     }
-
 }

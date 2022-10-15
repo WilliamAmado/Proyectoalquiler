@@ -1,59 +1,27 @@
 package com.usa.reto3v2.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "reservation")
 public class Reservation implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idReservation;
-    @Column(length = 58)
     private Date startDate;
-    @Column(length = 58)
     private Date devolutionDate;
-    private String status = "created";
-    //private int score;
-
-    @ManyToOne
-    @JoinColumn(name = "motorbikeId")
-    @JsonIgnoreProperties("reservations")
-    private Motorbike motorbike;
-    @ManyToOne
-    @JoinColumn(name = "clientId")
-    @JsonIgnoreProperties({"reservations", "messages"})//ignorar reservacion y mensaje
-    private Client client;
-    @OneToOne(cascade = {CascadeType.REMOVE}, mappedBy = "reservation")
-    @JsonIgnoreProperties("reservation")//ignorar reservacion
-    private Score score;
-
-
-    public Reservation() {
-    }
-
-    public Reservation(Integer idReservation, Date startDate, Date devolutionDate, String status, Motorbike motorbike, Client client, Score score) {
-        this.idReservation = idReservation;
-        this.startDate = startDate;
-        this.devolutionDate = devolutionDate;
-        this.status = status;
-        this.motorbike = motorbike;
-        this.client = client;
-        this.score = score;
-    }
-
-    public Integer getIdReservation() {
-        return idReservation;
-    }
-
-    public void setIdReservation(Integer idReservation) {
-        this.idReservation = idReservation;
-    }
+    private String status="created";
 
     public Date getStartDate() {
         return startDate;
@@ -71,6 +39,38 @@ public class Reservation implements Serializable {
         this.devolutionDate = devolutionDate;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "motorbikeId")
+    @JsonIgnoreProperties("reservations")
+    private Motorbike motorbike;
+    @ManyToOne
+    @JoinColumn(name = "clientId")
+    @JsonIgnoreProperties({"reservations","messages"})
+    private Client client;
+    @OneToOne(cascade = {CascadeType.REMOVE},mappedBy="reservation")
+    @JsonIgnoreProperties("reservation")
+    private Score score;
+
+    public Score getScore() {
+        return score;
+    }
+
+    public void setScore(Score score) {
+        this.score = score;
+    }
+
+    public Integer getIdReservation() {
+        return idReservation;
+    }
+
+    public void setIdReservation(Integer idReservation) {
+        this.idReservation = idReservation;
+    }
+
+
+
+
+
     public String getStatus() {
         return status;
     }
@@ -78,6 +78,7 @@ public class Reservation implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
+
 
     public Motorbike getMotorbike() {
         return motorbike;
@@ -95,11 +96,8 @@ public class Reservation implements Serializable {
         this.client = client;
     }
 
-    public Score getScore() {
-        return score;
-    }
 
-    public void setScore(Score score) {
-        this.score = score;
-    }
+
+
+
 }

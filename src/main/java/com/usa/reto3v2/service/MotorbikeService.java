@@ -5,84 +5,71 @@ import com.usa.reto3v2.repository.MotorbikeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-@Transactional
 public class MotorbikeService {
-
     @Autowired
     private MotorbikeRepository motorbikeRepository;
 
-    public List<Motorbike> getAll() {
+    public List<Motorbike> getAll(){
         return motorbikeRepository.getAll();
     }
 
-    public Motorbike get(Integer id) {
-        return motorbikeRepository.getMotorbike(id).get();
-    }
-
     public Optional<Motorbike> getMotorbike(int id) {
+
         return motorbikeRepository.getMotorbike(id);
     }
+    public Motorbike save(Motorbike p){
+        if(p.getId()==null){
+            return motorbikeRepository.save(p);
+        }else{
+            Optional<Motorbike> e = motorbikeRepository.getMotorbike(p.getId());
+            if(e.isPresent()){
 
-    public Motorbike save(Motorbike moto) {
-        if (moto.getId() == null) {
-            return motorbikeRepository.save(moto);
-        } else {
-            Optional<Motorbike> m = motorbikeRepository.getMotorbike(moto.getId());
-            if (m.isPresent()) {
-                return moto;
-            } else {
-                return motorbikeRepository.save(moto);
+                return p;
+            }else{
+
+                return motorbikeRepository.save(p);
+
             }
         }
     }
-
-    public Motorbike update(Motorbike moto) {
-        if (moto.getId() != null) {
-            Optional<Motorbike> mt = motorbikeRepository.getMotorbike(moto.getId());
-            if (mt.isPresent()) {
-                if (moto.getName() != null) {
-                    mt.get().setName(moto.getName());
+    public Motorbike update(Motorbike motorbike){
+        if(motorbike.getId()!=null){
+            Optional<Motorbike> e= motorbikeRepository.getMotorbike(motorbike.getId());
+            if(e.isPresent()){
+                if(motorbike.getName()!=null){
+                    e.get().setName(motorbike.getName());
                 }
-                if (moto.getBrand() != null) {
-                    mt.get().setBrand(moto.getBrand());
+                if(motorbike.getBrand()!=null){
+                    e.get().setBrand(motorbike.getBrand());
                 }
-                if (moto.getYear() != null) {
-                    mt.get().setYear(moto.getYear());
+                if(motorbike.getYear()!=null){
+                    e.get().setYear(motorbike.getYear());
                 }
-                if (moto.getDescription() != null) {
-                    mt.get().setDescription(moto.getDescription());
+                if(motorbike.getDescription()!=null){
+                    e.get().setDescription(motorbike.getDescription());
                 }
-                if (moto.getCategory() != null) {
-                    mt.get().setCategory(moto.getCategory());
+                if(motorbike.getCategory()!=null){
+                    e.get().setCategory(motorbike.getCategory());
                 }
-                if (moto.getMessages() != null) {
-                    mt.get().setMessages(moto.getMessages());
-                }
-                if (moto.getReservations() != null) {
-                    mt.get().setReservations(moto.getReservations());
-                }
-                motorbikeRepository.save(mt.get());
-                return mt.get();
-            } else {
-                return moto;
+                motorbikeRepository.save(e.get());
+                return e.get();
+            }else{
+                return motorbike;
             }
+        }else{
+            return motorbike;
         }
-        return moto;
-
+    }
+    public boolean deleteMotorbike(int id){
+        boolean d = getMotorbike(id).map(motorbike -> {
+            motorbikeRepository.delete(motorbike);
+            return true;
+        }).orElse(false);
+        return d;
     }
 
-    public boolean delete(int id) {
-        boolean marca = false;
-        Optional<Motorbike> mt = motorbikeRepository.getMotorbike(id);
-        if (mt.isPresent()) {
-            motorbikeRepository.delete(mt.get());
-            marca = true;
-        }
-        return marca;
-    }
 }
