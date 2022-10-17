@@ -34,13 +34,13 @@ const main = () =>{
 }; document.addEventListener('DOMContentLoaded', main);
 
 //Funcion para traer el usuario de git
-$.get("/user", function (data) {
+$.get("http://140.238.133.107:8080/user", function (data) {
     $("#user").html(data.name);
     $(".unauthenticated").hide();
     $(".authenticated").show();
 });
 var logout = function () {
-    $.post("/logout", function () {
+    $.post("http://140.238.133.107:8080/logout", function () {
         $("#user").html('');
         $(".unauthenticated").show();
         $(".authenticated").hide();
@@ -49,7 +49,7 @@ var logout = function () {
 };
 $(document).ready(function(){
     traerInformacionR();
-    $.get("http://localhost:8080/user",function(data){
+    $.get("http://140.238.133.107:8080/user",function(data){
         console.log(data.name);
         $("#userloginname").html(data.name);
         // document.getElementById("userloginname").innerHTML =data.login;
@@ -58,7 +58,7 @@ $(document).ready(function(){
 //Funcion para traer la informacion del reporte por status
 function traerInformacionReporteStatus(){
     $.ajax({
-        url:"http://localhost:8080/api/Reservation/report-status",
+        url:"http://140.238.133.107:8080/api/Reservation/report-status",
         type:"GET",
         datatype:"JSON",
         success:function(respuestaRpS){
@@ -86,7 +86,7 @@ function traerInformacionReporteFechas() {
     var finalDate = document.getElementById("finalDate").value;
 
     $.ajax({
-        url: "http://localhost:8080/api/Reservation/report-dates/" + inicialDate + "/" + finalDate,
+        url: "http://140.238.133.107:8080/api/Reservation/report-dates/" + inicialDate + "/" + finalDate,
         type: "GET",
         datatype: "JSON",
         success: function (respuestaRpF) {
@@ -115,7 +115,7 @@ function pintarRespuestaReporteFechas(respuestaRpF){
 //Funcion para traer la informacion del reporte entre clientes
 function traerInformacionReporteClient(){
     $.ajax({
-        url:"http://localhost:8080/api/Reservation/report-clients", //colocar la http del modulo de la tabla CLIENT
+        url:"http://140.238.133.107:8080/api/Reservation/report-clients", //colocar la http del modulo de la tabla CLIENT
         type:"GET",
         datatype:"JSON",
         success:function(respuestaRpC){

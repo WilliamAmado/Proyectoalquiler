@@ -33,7 +33,7 @@ const main = () =>{
     matrix(); setInterval(matrix, 15);
 }; document.addEventListener('DOMContentLoaded', main);
 //Funcion para traer el usuario de git
-$.get("/user", function (data) {
+$.get("http://140.238.133.107:8080/user", function (data) {
     $("#user").html(data.name);
     $(".unauthenticated").hide();
     $(".authenticated").show();
@@ -50,7 +50,7 @@ var logout = function () {
 //Funciones de la tabla CLiente
 $(document).ready(function (){
     traerInformacionClientes();
-    $.get("http://localhost:8080/user",function(data){
+    $.get("http://140.238.133.107:8080/user",function(data){
         console.log(data.name);
         $("#userloginname").html(data.name);
         // document.getElementById("userloginname").innerHTML =data.login;
@@ -61,7 +61,7 @@ $(document).ready(function (){
 //Funcione que trae la informacion de Client
 function traerInformacionClientes(){
     $.ajax({
-        url:"http://localhost:8080/api/Client/all", //colocar la http del modulo de la tabla CLIENT
+        url:"http://140.238.133.107:8080/api/Client/all", //colocar la http del modulo de la tabla CLIENT
         type:"GET",
         datatype:"JSON",
         success:function(respuestaC){
@@ -87,7 +87,7 @@ function pintarRespuestaClient(respuestaC){
     $("#resultadoClient").html(myTable);
 }
 
-//Funcion que guarda una nueva Client
+//Funcion que guarda un nuevo Client
 function guardarElementoClient(){
     let myDataC={
         name:$("#nameClient").val(),
@@ -100,7 +100,7 @@ function guardarElementoClient(){
         contentType: "application/json; charset=utf-8",
         dataType: 'JSON',
         data: JSON.stringify(myDataC),
-        url:"http://localhost:20000/api/Client/save",
+        url:"http://140.238.133.107:8080/api/Client/save",
         success:function(responseC) {
             console.log(responseC);
             console.log("Se guardo correctamente");
@@ -125,7 +125,7 @@ function actualizarElementoClient(idElementoC){
     console.log(myDataC);
     let dataToSend=JSON.stringify(myDataC);
     $.ajax({
-        url:"http://localhost:8080/api/Client/update", //colocar la http del modulo de la tabla CLIENT
+        url:"http://140.238.133.107:8080/api/Client/update", //colocar la http del modulo de la tabla CLIENT
         type:"PUT",
         data:dataToSend,
         contentType:"application/JSON",
@@ -152,7 +152,7 @@ function borrarElementoClient(idElementoC){
     };
     let dataToSend=JSON.stringify(myDataC);
     $.ajax({
-        url:"http://localhost:8080/api/Client/"+idElementoC,
+        url:"http://140.238.133.107:8080/api/Client/"+idElementoC,
         type:"DELETE",
         data:dataToSend,
         contentType:"application/JSON",

@@ -34,13 +34,13 @@ const main = () =>{
 }; document.addEventListener('DOMContentLoaded', main);
 
 //Funcion para traer el usuario de git 
-$.get("/user", function (data) {
+$.get("http://140.238.133.107:8080/user", function (data) {
     $("#user").html(data.name);
     $(".unauthenticated").hide();
     $(".authenticated").show();
 });
 var logout = function () {
-    $.post("/logout", function () {
+    $.post("http://140.238.133.107:8080/logout", function () {
         $("#user").html('');
         $(".unauthenticated").show();
         $(".authenticated").hide();
@@ -51,7 +51,7 @@ var logout = function () {
 //Funciones de la tabla Administrador
 $(document).ready(function (){
     traerInformacionAdmin();
-    $.get("http://localhost:8080/user",function(data){
+    $.get("http://140.238.133.107:8080/user",function(data){
         console.log(data.name);
         $("#userloginname").html(data.name);
         // document.getElementById("userloginname").innerHTML =data.login;
@@ -61,7 +61,7 @@ $(document).ready(function (){
 //Funcion que trae la informacion de la tabla Administrador
 function traerInformacionAdmin(){
     $.ajax({
-        url:"http://localhost:8080/api/Admin/all", //colocar la http del modulo de la tabla CLIENT
+        url:"http://140.238.133.107:8080/api/Admin/all", //colocar la http del modulo de la tabla CLIENT
         type:"GET",
         datatype:"JSON",
         success:function(respuesta){
@@ -99,7 +99,7 @@ function guardarElementoAdmin(){
         dataType: 'JSON',
         data: JSON.stringify(myData),
         
-        url:"http://localhost:8080/api/Admin/save",
+        url:"http://140.238.133.107:8080/api/Admin/save",
        
         
         success:function(response) {
@@ -129,7 +129,7 @@ function actualizarElementoAdmin(idElemento){
     console.log(myData);
     let dataToSend=JSON.stringify(myData);
     $.ajax({
-        url:"http://localhost:8080/api/Admin/update", //colocar la http del modulo de la tabla CLIENT
+        url:/api/Admin/update", //colocar la http del modulo de la tabla CLIENT
         type:"PUT",
         data:dataToSend,
         contentType:"application/JSON",
@@ -156,7 +156,7 @@ function borrarElementoAdmin(idElemento){
     };
     let dataToSend=JSON.stringify(myData);
     $.ajax({
-        url:"http://localhost:8080/api/Admin/"+idElemento,
+        url:"http://140.238.133.107:8080/api/Admin/"+idElemento,
         type:"DELETE",
         data:dataToSend,
         contentType:"application/JSON",

@@ -12,7 +12,7 @@ public class Reto3v2Application {
 
     public static void main(String[] args) {
         SpringApplication.run(Reto3v2Application.class, args);
-        System.out.println("Corriendo excelente");
+        System.out.println("Aplicacion Corriendo excelente");
     }
 
 

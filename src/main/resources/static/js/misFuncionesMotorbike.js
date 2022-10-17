@@ -1,11 +1,11 @@
 //Funcion para traer el usuario de git
-$.get("/user", function (data) {
+$.get("http://140.238.133.107:8080/user", function (data) {
     $("#user").html(data.name);
     $(".unauthenticated").hide();
     $(".authenticated").show();
 });
 var logout = function () {
-    $.post("/logout", function () {
+    $.post("http://140.238.133.107:8080/logout", function () {
         $("#user").html('');
         $(".unauthenticated").show();
         $(".authenticated").hide();
@@ -16,7 +16,7 @@ var logout = function () {
 // Rutina para traer las categorias a un <select>
 function traerInformacionC(){
     $.ajax({
-        url:"/api/Category/all",  //"http://150.230.95.100:8080/api/Category/all"
+        url:"http://140.238.133.107:8080/api/Category/all",  //"http://150.230.95.100:8080/api/Category/all"
         type:"GET",
         datatype:"JSON",
         success:function(respuestaC){
@@ -51,7 +51,7 @@ $(document).ready(function (){
 //Funcione que trae la informacion de Motorbike
 function traerInformacionMotorbike(){
     $.ajax({
-        url:"http://localhost:8080/api/Motorbike/all",
+        url:"http://140.238.133.107:8080/api/Motorbike/all",
         type:"GET",
         datatype:"JSON",
         success:function(respuestaMotorbike){
@@ -95,7 +95,7 @@ function guardarElementoMotorbike(){
         contentType: "application/json; charset=utf-8",
         dataType: 'JSON',
         data: JSON.stringify(myData),
-        url:"http://localhost:8080/api/Motorbike/save",
+        url:"http://140.238.133.107:8080/api/Motorbike/save",
         success:function(response) {
             console.log(response);
             console.log("La motocicleta se guardó correctamente");
@@ -121,7 +121,7 @@ function actualizarElementoMotorbike(idElemento){
     console.log(myData);
     let dataToSend=JSON.stringify(myData);
     $.ajax({
-        url:"http://localhost:8080/api/Motorbike/update", //colocar la http del modulo de la tabla CLIENT
+        url:"http://140.238.133.107:8080/api/Motorbike/update", //colocar la http del modulo de la tabla CLIENT
         type:"PUT",
         data:dataToSend,
         contentType:"application/JSON",
@@ -145,7 +145,7 @@ function borrarElementoMotorbike(idElemento){
     };
     let dataToSend=JSON.stringify(myData);
     $.ajax({
-        url:"http://localhost:8080/api/Motorbike/"+idElemento,
+        url:"http://140.238.133.107:8080/api/Motorbike/"+idElemento,
         type:"DELETE",
         data:dataToSend,
         contentType:"application/JSON",

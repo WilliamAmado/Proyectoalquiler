@@ -34,13 +34,13 @@ const main = () =>{
 }; document.addEventListener('DOMContentLoaded', main);
 
 //Funcion para traer el usuario de git 
-$.get("/user", function (data) {
+$.get("http://140.238.133.107:8080/user", function (data) {
     $("#user").html(data.name);
     $(".unauthenticated").hide();
     $(".authenticated").show();
 });
 var logout = function () {
-    $.post("/logout", function () {
+    $.post("http://140.238.133.107:8080/logout", function () {
         $("#user").html('');
         $(".unauthenticated").show();
         $(".authenticated").hide();

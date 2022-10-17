@@ -34,13 +34,13 @@ const main = () =>{
 }; document.addEventListener('DOMContentLoaded', main);
 
 //Funcion para traer el usuario de git
-$.get("/user", function (data) {
+$.get("http://140.238.133.107:8080/user", function (data) {
     $("#user").html(data.name);
     $(".unauthenticated").hide();
     $(".authenticated").show();
 });
 var logout = function () {
-    $.post("/logout", function () {
+    $.post("http://140.238.133.107:8080/logout", function () {
         $("#user").html('');
         $(".unauthenticated").show();
         $(".authenticated").hide();
@@ -51,7 +51,7 @@ var logout = function () {
 //Funciones del <select> Reservacion
 $(document).ready(function(){
     traerInformacionR();
-    $.get("http://localhost:8080/user",function(data){
+    $.get("http://140.238.133.107:8080/user",function(data){
         console.log(data.name);
         $("#userloginname").html(data.name);
         // document.getElementById("userloginname").innerHTML =data.login;
@@ -61,7 +61,7 @@ $(document).ready(function(){
 // Rutina para taer las Reservacion a un <select>
 function traerInformacionR(){
     $.ajax({
-        url:"http://localhost:8080/api/Reservation/all",
+        url:"http://140.238.133.107:8080/api/Reservation/all",
         type:"GET",
         datatype:"JSON",
         success:function(respuestaR){
@@ -88,7 +88,7 @@ $(document).ready(function(){
 // Rutina para taer las Calificaciones
 function traerInformacionScore(){
     $.ajax({
-        url:"http://localhost:8080/api/Score/all",
+        url:"http://140.238.133.107:8080/api/Score/all",
         type:"GET",
         datatype:"JSON",
         success:function(respuestaScore){
@@ -134,7 +134,7 @@ function guardarElementoScore(){
         contentType: "application/json; charset=utf-8",
         dataType: 'JSON',
         data: JSON.stringify(myData),
-        url:"http://localhost:8080/api/Score/save",
+        url:"http://140.238.133.107:8080/api/Score/save",
         success:function(response) {
             console.log(response);
             console.log("La Calificacion se Guardo Correctamente");
