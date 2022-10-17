@@ -1,5 +1,7 @@
 package com.usa.reto3v2.service;
 
+import com.usa.reto3v2.entities.DTOs.CountClient;
+import com.usa.reto3v2.entities.DTOs.CountStatus;
 import com.usa.reto3v2.entities.Reservation;
 import com.usa.reto3v2.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.transaction.Transactional;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -84,4 +90,31 @@ public class ReservationService {
         }
         return flag;
     }
+
+    public List<CountClient> getClientCasher(){
+        return reservationRepository.getClientCasher();
+    }
+    public List<Reservation> getReservationsBetweenDates(String dateA, String dateB){
+        SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
+        Date a = new Date();
+        Date b = new Date();
+        try{
+            a = parser.parse(dateA);
+            b = parser.parse(dateB);
+        }catch (ParseException error){
+            error.printStackTrace();
+        }
+        if(a.before(b)){
+            return reservationRepository.getReservationsBetweenDates(a, b);
+        }else{
+            return new ArrayList<>();
+        }
+    }
+
+    public CountStatus getReservationsStatus(){
+        List<Reservation> reservascompletadas = reservationRepository.getReservationsByStatus("completed");
+        List<Reservation> reservascanceladas = reservationRepository.getReservationsByStatus("cancelled");
+        return new CountStatus((long) reservascompletadas.size(), (long) reservascanceladas.size());
+    }
 }
+

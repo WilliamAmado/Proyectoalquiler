@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/Category")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class CategoryController {
 
     @Autowired
@@ -24,9 +24,7 @@ public class CategoryController {
         return categoryService.getAll();
     }
 
-    /*@PostMapping("/save")
-    public void save(@RequestBody Category ct){
-        categoryService.save(ct);*/
+
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
     public Category save(@RequestBody Category ct) {
